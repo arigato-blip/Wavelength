@@ -4,7 +4,7 @@
   <title>Wavelength</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root {
       --black: #050505;
@@ -12,7 +12,7 @@
       --lime: #c8f05a;
       --red: #ff3c3c;
       --green: #1DB954;
-      --dim: #141414;
+      --dim: #0e0e0e;
       --muted: #484848;
       --border: rgba(255,255,255,0.07);
     }
@@ -30,34 +30,98 @@
     }
 
     .cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--lime);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  top: 0; left: 0;
-  transform: translate(0px, 0px);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: difference;
-  will-change: transform;
-}
-
-.cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1px solid rgba(200,240,90,0.5);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  top: 0; left: 0;
-  transform: translate(0px, 0px);
-  transition: width 0.35s ease, height 0.35s ease, border-color 0.2s;
-  will-change: transform;
-}
-
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--lime);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(200,240,90,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width 0.35s ease, height 0.35s ease, border-color 0.2s;
+    }
     body:has(button:hover) .cursor { width: 20px; height: 20px; background: var(--white); }
     body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: var(--lime); }
+
+    /* INTRO */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: introFadeOut 0.8s 3.4s ease forwards;
+    }
+    #intro svg { overflow: visible; }
+    .intro-circle {
+      fill: none;
+      stroke: var(--lime);
+      transform-origin: center;
+      transform: scale(0);
+      opacity: 0;
+    }
+    .intro-circle:nth-child(1) { animation: ripple 1s 0.2s ease forwards; stroke-width: 1.5; opacity: 0.5; }
+    .intro-circle:nth-child(2) { animation: ripple 1s 0.5s ease forwards; stroke-width: 1; opacity: 0.35; }
+    .intro-circle:nth-child(3) { animation: ripple 1s 0.8s ease forwards; stroke-width: 0.7; opacity: 0.2; }
+    @keyframes ripple {
+      0% { transform: scale(0); opacity: 0; }
+      60% { opacity: 1; }
+      100% { transform: scale(1); opacity: inherit; }
+    }
+    .intro-wave {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: drawWave 0.8s 0.3s ease forwards;
+    }
+    @keyframes drawWave { to { stroke-dashoffset: 0; } }
+    .intro-word-1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.15em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: wordUp 0.8s 1s ease forwards;
+      line-height: 1;
+    }
+    .intro-word-2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--lime);
+      letter-spacing: 0.15em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: wordUp 0.8s 1.3s ease forwards;
+      line-height: 1;
+    }
+    .intro-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: wordUp 0.6s 1.8s ease forwards;
+      margin-top: 1.2rem;
+    }
+    @keyframes wordUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes introFadeOut { to { opacity: 0; pointer-events: none; } }
 
     body::before {
       content: '';
@@ -70,7 +134,6 @@
       pointer-events: none;
       z-index: 998;
     }
-
     body::after {
       content: '';
       position: fixed;
@@ -88,101 +151,204 @@
     @keyframes o2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,-80px)} }
     @keyframes o3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(50px,-60px)} 66%{transform:translate(-50px,40px)} }
 
+    /* SIDE DECORATIONS */
+    .side-left {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      z-index: 10;
+      opacity: 0;
+      animation: fadeIn 0.6s 4s ease forwards;
+    }
+    .side-right {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      z-index: 10;
+      opacity: 0;
+      animation: fadeIn 0.6s 4s ease forwards;
+    }
+    .side-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      opacity: 0.5;
+    }
+    .side-line {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--muted), transparent);
+      opacity: 0.3;
+    }
+    .side-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--lime);
+      opacity: 0.4;
+      animation: livePulse 2s ease infinite;
+    }
+    .freq-bars {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+      height: 30px;
+    }
+    .freq-bar {
+      width: 2px;
+      background: var(--muted);
+      border-radius: 1px;
+      opacity: 0.3;
+      animation: freqAnim 1.5s ease-in-out infinite;
+    }
+    .freq-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+    .freq-bar:nth-child(2) { height: 18px; animation-delay: 0.2s; }
+    .freq-bar:nth-child(3) { height: 12px; animation-delay: 0.4s; }
+    .freq-bar:nth-child(4) { height: 22px; animation-delay: 0.1s; }
+    .freq-bar:nth-child(5) { height: 10px; animation-delay: 0.3s; }
+    @keyframes freqAnim {
+      0%,100% { transform: scaleY(1); opacity: 0.3; }
+      50% { transform: scaleY(1.8); opacity: 0.6; }
+    }
+
     .page {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 0 2rem 6rem;
       position: relative;
       z-index: 1;
+      opacity: 0;
+      animation: fadeIn 0.6s 3.8s ease forwards;
     }
 
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.5rem 0;
+      padding: 1.8rem 0;
       border-bottom: 1px solid var(--border);
-      animation: fadeIn 0.6s ease both;
     }
-    .topbar-left { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-    .topbar-right { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; }
+    .topbar-logo svg { overflow: visible; }
+    .topbar-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .topbar-right { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); animation: livePulse 1.5s ease infinite; }
     @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
 
     .hero {
-      padding: 4rem 0 3rem;
+      padding: 5rem 0 4rem;
       border-bottom: 1px solid var(--border);
-      animation: fadeUp 0.8s 0.1s ease both;
     }
     .hero-label {
       font-size: 10px;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--lime);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      font-family: 'DM Mono', monospace;
     }
-    .hero-label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--lime); }
+    .hero-label::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--lime); }
     .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4.5rem, 14vw, 8.5rem);
-      line-height: 0.88;
-      letter-spacing: 0.01em;
-      margin-bottom: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(5rem, 16vw, 10rem);
+      line-height: 0.85;
+      letter-spacing: -0.01em;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
     }
     .hero-title .line-1 { color: var(--white); display: block; }
-    .hero-title .line-2 { display: block; -webkit-text-stroke: 1.5px var(--lime); color: transparent; position: relative; }
+    .hero-title .line-2 {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--lime);
+      position: relative;
+    }
     .hero-title .line-2::after {
-      content: ''; position: absolute; bottom: 4px; left: 0;
-      width: 0; height: 2px; background: var(--lime);
-      animation: lineGrow 1.2s 0.8s ease forwards;
+      content: ''; position: absolute; bottom: 6px; left: 0;
+      width: 0; height: 1px; background: var(--lime);
+      animation: lineGrow 1.4s 4.2s ease forwards;
     }
     @keyframes lineGrow { to { width: 100%; } }
 
     .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
     .hero-desc {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.8vw, 1.7rem);
       font-style: italic;
-      color: #777;
-      line-height: 1.6;
-      max-width: 380px;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.5;
+      max-width: 400px;
     }
-    .hero-desc em { color: var(--white); font-style: normal; }
+    .hero-desc em { color: var(--white); font-style: normal; font-weight: 400; }
     .hero-stat { text-align: right; flex-shrink: 0; }
-    .hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--lime); line-height: 1; }
-    .hero-stat-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: var(--lime);
+      line-height: 1;
+      font-weight: 300;
+    }
+    .hero-stat-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; font-family: 'DM Mono', monospace; }
 
-    .marquee-wrap { overflow: hidden; border-bottom: 1px solid var(--border); padding: 10px 0; animation: fadeIn 0.6s 0.2s ease both; }
-    .marquee { display: flex; gap: 2.5rem; animation: scroll 25s linear infinite; white-space: nowrap; width: max-content; }
-    .marquee-item { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 1rem; }
+    .marquee-wrap { overflow: hidden; border-bottom: 1px solid var(--border); padding: 12px 0; }
+    .marquee { display: flex; gap: 3rem; animation: scroll 30s linear infinite; white-space: nowrap; width: max-content; }
+    .marquee-item { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 1rem; font-family: 'DM Mono', monospace; }
     .marquee-item span { color: var(--lime); }
     @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    .section { padding: 3rem 0; border-bottom: 1px solid var(--border); animation: fadeUp 0.8s 0.3s ease both; }
-    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
-    .section-title { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
-    .section-num { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); }
+    .section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+    .section-title { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .section-num { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); font-family: 'DM Mono', monospace; }
 
     .features { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
     .feature {
       background: var(--black);
-      padding: 1.6rem;
+      padding: 2rem;
       transition: background 0.2s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
       position: relative;
       overflow: hidden;
       cursor: none;
     }
     .feature::after { content: ''; position: absolute; inset: 0; border: 1px solid transparent; border-radius: 4px; transition: border-color 0.3s ease; pointer-events: none; }
-    .feature:hover { background: #0d0d0d; transform: scale(1.03) translateY(-4px); box-shadow: 0 20px 60px rgba(200,240,90,0.1), 0 0 0 1px rgba(200,240,90,0.2); z-index: 2; }
-    .feature:hover::after { border-color: rgba(200,240,90,0.25); }
-    .feature-index { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 1rem; }
-    .feature-title { font-family: 'Instrument Serif', serif; font-size: 1.15rem; font-style: italic; color: var(--white); margin-bottom: 6px; }
-    .feature-desc { font-size: 11px; color: #888; line-height: 1.7; letter-spacing: 0.02em; }
+    .feature:hover { background: #0d0d0d; transform: scale(1.02) translateY(-3px); box-shadow: 0 20px 60px rgba(200,240,90,0.08), 0 0 0 1px rgba(200,240,90,0.15); z-index: 2; }
+    .feature:hover::after { border-color: rgba(200,240,90,0.2); }
+    .feature-index { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 1.2rem; font-family: 'DM Mono', monospace; }
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .feature-desc { font-size: 11px; color: #777; line-height: 1.8; letter-spacing: 0.02em; font-family: 'DM Mono', monospace; }
 
-    .cta-section { padding: 3.5rem 0; animation: fadeUp 0.8s 0.4s ease both; }
+    .cta-section { padding: 4rem 0; }
 
     .btn-spotify {
       width: 100%;
@@ -193,7 +359,7 @@
       color: var(--white);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 20px 28px;
+      padding: 22px 32px;
       font-family: 'DM Mono', monospace;
       font-size: 13px;
       letter-spacing: 0.08em;
@@ -207,35 +373,35 @@
     .btn-spotify-arrow { font-size: 18px; transition: transform 0.3s ease; }
     .btn-spotify::before { content: ''; position: absolute; inset: 0; background: var(--green); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.76,0,0.24,1); z-index: 0; }
     .btn-spotify > * { position: relative; z-index: 1; }
-    .btn-spotify:hover { color: #000; border-color: var(--green); transform: translateY(-3px); box-shadow: 0 14px 50px rgba(29,185,84,0.4); }
+    .btn-spotify:hover { color: #000; border-color: var(--green); transform: translateY(-3px); box-shadow: 0 14px 50px rgba(29,185,84,0.35); }
     .btn-spotify:hover::before { transform: translateX(0); }
     .btn-spotify:hover .btn-spotify-arrow { transform: translateX(6px); }
-    .btn-note { font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 12px; text-align: center; }
+    .btn-note { font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 14px; text-align: center; font-family: 'DM Mono', monospace; }
 
     #connectedSection { animation: fadeUp 0.6s ease both; }
-    .connected-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(29,185,84,0.2); border-radius: 2px; padding: 6px 14px; font-size: 10px; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2rem; }
+    .connected-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(29,185,84,0.2); border-radius: 2px; padding: 7px 16px; font-size: 10px; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2.5rem; font-family: 'DM Mono', monospace; }
     .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: livePulse 1.5s ease infinite; }
-    .section-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .section-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; font-family: 'DM Mono', monospace; }
 
     textarea {
       width: 100%;
       background: transparent;
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 18px;
+      padding: 20px;
       color: var(--white);
       font-family: 'DM Mono', monospace;
       font-size: 12px;
       letter-spacing: 0.03em;
       resize: none;
       outline: none;
-      min-height: 100px;
-      line-height: 1.9;
+      min-height: 110px;
+      line-height: 2;
       margin-bottom: 1px;
       transition: border-color 0.2s;
     }
-    textarea:focus { border-color: rgba(200,240,90,0.4); }
-    textarea::placeholder { color: #2a2a2a; }
+    textarea:focus { border-color: rgba(200,240,90,0.35); }
+    textarea::placeholder { color: #252525; }
 
     .btn-analyse {
       width: 100%;
@@ -246,10 +412,10 @@
       color: var(--black);
       border: none;
       border-radius: 4px;
-      padding: 20px 28px;
+      padding: 22px 32px;
       font-family: 'DM Mono', monospace;
       font-size: 13px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       cursor: none;
       transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
@@ -260,69 +426,119 @@
     .btn-analyse::before { content: ''; position: absolute; inset: 0; background: #d4f76a; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.76,0,0.24,1); }
     .btn-analyse > * { position: relative; z-index: 1; }
     .btn-analyse:hover::before { transform: translateX(0); }
-    .btn-analyse:hover { transform: translateY(-3px); box-shadow: 0 14px 50px rgba(200,240,90,0.35); }
+    .btn-analyse:hover { transform: translateY(-3px); box-shadow: 0 14px 50px rgba(200,240,90,0.3); }
     .btn-analyse:hover .btn-analyse-arrow { transform: translateX(6px); }
 
-    #result { display: none; animation: fadeUp 0.7s ease both; }
+    #result { display: none; }
     #result.visible { display: block; }
 
-    .result-section { padding: 3rem 0; border-top: 1px solid var(--border); margin-top: 3rem; }
-    .result-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
-    .result-tag { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--lime); }
-    .result-id { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); }
+    .result-section { padding: 3.5rem 0; border-top: 1px solid var(--border); margin-top: 3rem; animation: fadeUp 0.7s ease both; }
+    .result-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; }
+    .result-tag { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-family: 'DM Mono', monospace; }
+    .result-id { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); font-family: 'DM Mono', monospace; }
 
     .result-body {
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 2.5rem;
+      padding: 3rem;
       position: relative;
       background: var(--dim);
     }
     .result-body::before {
       content: '"';
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 9rem;
-      color: rgba(200,240,90,0.04);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10rem;
+      color: rgba(200,240,90,0.03);
       position: absolute;
-      top: -1.5rem; left: 1.5rem;
+      top: -2rem; left: 2rem;
       line-height: 1;
       pointer-events: none;
     }
-
     .result-text {
-      font-family: 'DM Mono', monospace;
-      font-size: 14px;
-      font-style: normal;
-      line-height: 2.2;
-      color: #ccc;
-      letter-spacing: 0.02em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 2;
+      color: #bbb;
+      letter-spacing: 0.01em;
       position: relative;
       z-index: 1;
     }
 
-    .share-row { display: flex; align-items: center; gap: 10px; margin-top: 1.5rem; }
-    .share-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-    .share-btn { background: transparent; border: 1px solid var(--border); border-radius: 2px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); cursor: none; transition: all 0.2s ease; width: auto; }
-    .share-btn:hover { border-color: var(--lime); color: var(--lime); background: rgba(200,240,90,0.05); transform: translateY(-2px); }
+    .share-row { display: flex; align-items: center; gap: 10px; margin-top: 2rem; flex-wrap: wrap; }
+    .share-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .share-btn { background: transparent; border: 1px solid var(--border); border-radius: 2px; padding: 8px 18px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); cursor: none; transition: all 0.2s ease; width: auto; }
+    .share-btn:hover { border-color: var(--lime); color: var(--lime); background: rgba(200,240,90,0.04); transform: translateY(-2px); }
 
-    .loading { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-style: normal; font-family: 'DM Mono', monospace; }
+    .loading { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'DM Mono', monospace; }
     .dots { display: flex; gap: 5px; }
     .dots span { width: 4px; height: 4px; border-radius: 50%; background: var(--lime); animation: bounce 1.2s ease infinite; }
     .dots span:nth-child(2) { animation-delay: 0.2s; }
     .dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes bounce { 0%,100%{transform:translateY(0);opacity:0.3} 50%{transform:translateY(-7px);opacity:1} }
 
-    .footer { padding: 2rem 0; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; animation: fadeIn 0.6s 0.5s ease both; }
-    .footer-left { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-    .footer-right { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    .footer { padding: 2.5rem 0; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .footer-left { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .footer-right { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @keyframes fadeIn { from{opacity:0} to{opacity:1} }
   </style>
 </head>
 <body>
+
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- INTRO -->
+  <div id="intro">
+    <svg width="120" height="120" viewBox="0 0 120 120">
+      <circle class="intro-circle" cx="60" cy="60" r="55"/>
+      <circle class="intro-circle" cx="60" cy="60" r="42"/>
+      <circle class="intro-circle" cx="60" cy="60" r="28"/>
+      <path class="intro-wave" d="M30 60 Q40 40 50 60 Q60 80 70 60 Q80 40 90 60" fill="none" stroke="#c8f05a" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <div style="text-align:center; margin-top: 2rem;">
+      <div class="intro-word-1">Wave</div>
+      <div class="intro-word-2">length</div>
+      <div class="intro-tagline">You are what you listen to</div>
+    </div>
+  </div>
+
+  <!-- SIDE DECORATIONS -->
+  <div class="side-left">
+    <div class="side-dot"></div>
+    <div class="side-line"></div>
+    <div class="side-text">Music Intelligence</div>
+    <div class="side-line"></div>
+    <div class="freq-bars">
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+    </div>
+    <div class="side-line"></div>
+    <div class="side-dot"></div>
+  </div>
+
+  <div class="side-right">
+    <div class="side-dot"></div>
+    <div class="side-line"></div>
+    <div class="side-text">© 2026 Wavelength</div>
+    <div class="side-line"></div>
+    <div class="freq-bars">
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+      <div class="freq-bar"></div>
+    </div>
+    <div class="side-line"></div>
+    <div class="side-dot"></div>
+  </div>
+
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
@@ -330,7 +546,15 @@
   <div class="page">
 
     <div class="topbar">
-      <div class="topbar-left">Wavelength — v1.0</div>
+      <div class="topbar-logo">
+        <svg width="28" height="28" viewBox="0 0 60 60" overflow="visible">
+          <circle cx="30" cy="30" r="28" fill="none" stroke="#c8f05a" stroke-width="1" opacity="0.4"/>
+          <circle cx="30" cy="30" r="20" fill="none" stroke="#c8f05a" stroke-width="0.7" opacity="0.25"/>
+          <circle cx="30" cy="30" r="12" fill="none" stroke="#c8f05a" stroke-width="0.5" opacity="0.15"/>
+          <path d="M14 30 Q19 20 24 30 Q29 40 34 30 Q39 20 44 30" fill="none" stroke="#c8f05a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="topbar-name">Wavelength</span>
+      </div>
       <div class="topbar-right">
         <div class="live-dot"></div>
         Live
@@ -360,13 +584,13 @@
         <div class="marquee-item">Real Spotify Data <span>✦</span></div>
         <div class="marquee-item">AI Personality Read <span>✦</span></div>
         <div class="marquee-item">Instant Analysis <span>✦</span></div>
-        <div class="marquee-item">10 Top Artists <span>✦</span></div>
+        <div class="marquee-item">Your Wavelength Mix <span>✦</span></div>
         <div class="marquee-item">Zero Data Stored <span>✦</span></div>
         <div class="marquee-item">Powered by Groq <span>✦</span></div>
         <div class="marquee-item">Real Spotify Data <span>✦</span></div>
         <div class="marquee-item">AI Personality Read <span>✦</span></div>
         <div class="marquee-item">Instant Analysis <span>✦</span></div>
-        <div class="marquee-item">10 Top Artists <span>✦</span></div>
+        <div class="marquee-item">Your Wavelength Mix <span>✦</span></div>
         <div class="marquee-item">Zero Data Stored <span>✦</span></div>
         <div class="marquee-item">Powered by Groq <span>✦</span></div>
       </div>
@@ -375,7 +599,7 @@
     <div class="section">
       <div class="section-header">
         <div class="section-title">What it does</div>
-        <div class="section-num">04 features</div>
+        <div class="section-num">05 features</div>
       </div>
       <div class="features">
         <div class="feature">
@@ -386,17 +610,22 @@
         <div class="feature">
           <div class="feature-index">02 —</div>
           <div class="feature-title">AI personality read</div>
-          <div class="feature-desc">Deep analysis of what your taste says about who you really are.</div>
+          <div class="feature-desc">A razor-sharp read of who you are based on what you actually listen to. No filter.</div>
         </div>
         <div class="feature">
           <div class="feature-index">03 —</div>
-          <div class="feature-title">Private & secure</div>
-          <div class="feature-desc">We never store your data. The moment you close this tab — it's gone.</div>
+          <div class="feature-title">Your Wavelength Mix</div>
+          <div class="feature-desc">A playlist built from your real top tracks — saved directly to your Spotify.</div>
         </div>
         <div class="feature">
           <div class="feature-index">04 —</div>
+          <div class="feature-title">Private & secure</div>
+          <div class="feature-desc">We never store your data. The moment you close this tab — it's gone.</div>
+        </div>
+        <div class="feature" style="grid-column: span 2;">
+          <div class="feature-index">05 —</div>
           <div class="feature-title">Instant results</div>
-          <div class="feature-desc">Connect your Spotify and get your full personality read in seconds.</div>
+          <div class="feature-desc">Connect your Spotify and get your full personality read + playlist in seconds. No waiting, no friction.</div>
         </div>
       </div>
     </div>
@@ -412,7 +641,7 @@
           </div>
           <div class="btn-spotify-arrow">→</div>
         </button>
-        <p class="btn-note">Free · No account needed · Takes 10 seconds</p>
+        <p class="btn-note">Free · Private · Takes 10 seconds</p>
       </div>
 
       <div id="connectedSection" style="display:none">
@@ -438,22 +667,24 @@
         <div class="result-body">
           <div class="result-text" id="resultText"></div>
         </div>
-        <div id="playlistSection" style="margin-top: 1.5rem;">
-  <button class="btn-spotify" onclick="createPlaylist()">
-    <div class="btn-spotify-inner">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.419 1.56-.299.421-1.02.599-1.559.3z"/>
-      </svg>
-      Generate My Playlist
-    </div>
-    <div class="btn-spotify-arrow">→</div>
-  </button>
-  <div id="playlistLink" style="margin-top: 1rem; font-size: 11px; letter-spacing: 0.08em; color: var(--muted);"></div>
-</div>
+        <div id="playlistSection" style="margin-top: 2rem;">
+          <button class="btn-spotify" onclick="createPlaylist()">
+            <div class="btn-spotify-inner">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.419 1.56-.299.421-1.02.599-1.559.3z"/>
+              </svg>
+              Generate My Wavelength Mix
+            </div>
+            <div class="btn-spotify-arrow">→</div>
+          </button>
+          <div id="playlistLink" style="margin-top: 1.2rem; font-size: 11px; letter-spacing: 0.08em; color: var(--muted); font-family: 'DM Mono', monospace;"></div>
+        </div>
         <div class="share-row">
           <span class="share-label">Share →</span>
           <button class="share-btn" onclick="copyResult()">Copy text</button>
           <button class="share-btn" onclick="tweetResult()">Post on X</button>
+          <button class="share-btn" onclick="shareWhatsApp()">WhatsApp</button>
+          <button class="share-btn" onclick="copyLink()">Copy link</button>
         </div>
       </div>
     </div>
@@ -469,22 +700,12 @@
     const cursor = document.getElementById('cursor')
     const cursorRing = document.getElementById('cursorRing')
 
-    let mouseX = 0, mouseY = 0
-let ringX = 0, ringY = 0
-
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX
-  mouseY = e.clientY
-  cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`
-})
-
-function animateRing() {
-  ringX += (mouseX - ringX) * 0.12
-  ringY += (mouseY - ringY) * 0.12
-  cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`
-  requestAnimationFrame(animateRing)
-}
-animateRing()
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px'
+      cursor.style.top = e.clientY + 'px'
+      cursorRing.style.left = e.clientX + 'px'
+      cursorRing.style.top = e.clientY + 'px'
+    })
 
     const params = new URLSearchParams(window.location.search)
     const token = params.get('access_token')
@@ -498,52 +719,43 @@ animateRing()
     function connectSpotify() { window.location.href = '/login' }
 
     async function loadTopArtists() {
-  try {
-    const response = await fetch('https://api.spotify.com/v1/me/top/artists?limit=10&time_range=medium_term', {
-      headers: { 'Authorization': 'Bearer ' + token }
-    })
-    const data = await response.json()
-
-    if (!data.items || data.items.length === 0) {
-      document.getElementById('artists').value = 'No artists found. Try listening to more music first!'
-      return
+      try {
+        const response = await fetch('https://api.spotify.com/v1/me/top/artists?limit=10&time_range=medium_term', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+        const data = await response.json()
+        if (!data.items || data.items.length === 0) {
+          document.getElementById('artists').value = 'No artists found. Try listening to more music first!'
+          return
+        }
+        const artistNames = data.items.map(a => a.name).join(', ')
+        document.getElementById('artists').value = artistNames
+      } catch (err) {
+        document.getElementById('artists').value = 'Error loading artists. Try reconnecting Spotify.'
+        console.error('Spotify fetch error:', err)
+      }
     }
-
-    const artistNames = data.items.map(a => a.name).join(', ')
-    document.getElementById('artists').value = artistNames
-
-  } catch (err) {
-    document.getElementById('artists').value = 'Error loading artists. Try reconnecting Spotify.'
-    console.error('Spotify fetch error:', err)
-  }
-} 
 
     async function analyse() {
       let artists = document.getElementById("artists").value
       if (!artists) return
-
       let resultBox = document.getElementById("result")
       let resultText = document.getElementById("resultText")
       let resultId = document.getElementById("resultId")
-
       const id = 'WL-' + Math.random().toString(36).substring(2,7).toUpperCase()
       resultId.textContent = id
-
       resultBox.classList.add("visible")
       resultText.innerHTML = `
         <div class="loading">
           <div class="dots"><span></span><span></span><span></span></div>
           Decoding your taste
         </div>`
-
       resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
       let response = await fetch("/analyse", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ artists: artists })
       })
-
       let data = await response.json()
       resultText.innerHTML = data.result
     }
@@ -559,18 +771,30 @@ animateRing()
       const tweet = encodeURIComponent('"' + text.substring(0, 200) + '..." — My music personality via Wavelength')
       window.open('https://twitter.com/intent/tweet?text=' + tweet, '_blank')
     }
+
+    function shareWhatsApp() {
+      const text = document.getElementById('resultText').innerText
+      const msg = encodeURIComponent('"' + text.substring(0, 200) + '..." — My music personality via Wavelength\n\nhttps://wavelength-nx3r.onrender.com')
+      window.open('https://wa.me/?text=' + msg, '_blank')
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText('https://wavelength-nx3r.onrender.com')
+      alert('Link copied!')
+    }
+
     async function createPlaylist() {
-  document.getElementById('playlistLink').textContent = 'Creating your playlist...'
-  const response = await fetch('/create-playlist', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token: token })
-  })
-  const data = await response.json()
-  if (data.playlistUrl) {
-    document.getElementById('playlistLink').innerHTML = `<a href="${data.playlistUrl}" target="_blank" style="color: var(--lime);">Open your playlist on Spotify →</a>`
-  }
-}
+      document.getElementById('playlistLink').textContent = 'Creating your Wavelength Mix...'
+      const response = await fetch('/create-playlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token })
+      })
+      const data = await response.json()
+      if (data.playlistUrl) {
+        document.getElementById('playlistLink').innerHTML = `<a href="${data.playlistUrl}" target="_blank" style="color: var(--lime);">Open your Wavelength Mix on Spotify →</a>`
+      }
+    }
   </script>
 </body>
 </html>
