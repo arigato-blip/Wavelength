@@ -13,7 +13,7 @@
       --red: #ff3c3c;
       --green: #1DB954;
       --dim: #0e0e0e;
-      --muted: #484848;
+      --muted: #888888;
       --border: rgba(255,255,255,0.07);
     }
 
@@ -115,7 +115,7 @@
       font-size: 10px;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: #999;
       opacity: 0;
       animation: wordUp 0.6s 1.8s ease forwards;
       margin-top: 1.2rem;
@@ -153,76 +153,30 @@
 
     /* SIDE DECORATIONS */
     .side-left {
-      position: fixed;
-      left: 20px;
-      top: 50%;
+      position: fixed; left: 20px; top: 50%;
       transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      z-index: 10;
-      opacity: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+      z-index: 10; opacity: 0;
       animation: fadeIn 0.6s 4s ease forwards;
     }
     .side-right {
-      position: fixed;
-      right: 20px;
-      top: 50%;
+      position: fixed; right: 20px; top: 50%;
       transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      z-index: 10;
-      opacity: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+      z-index: 10; opacity: 0;
       animation: fadeIn 0.6s 4s ease forwards;
     }
-    .side-text {
-      font-family: 'DM Mono', monospace;
-      font-size: 8px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      writing-mode: vertical-rl;
-      opacity: 0.5;
-    }
-    .side-line {
-      width: 1px;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--muted), transparent);
-      opacity: 0.3;
-    }
-    .side-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--lime);
-      opacity: 0.4;
-      animation: livePulse 2s ease infinite;
-    }
-    .freq-bars {
-      display: flex;
-      gap: 3px;
-      align-items: flex-end;
-      height: 30px;
-    }
-    .freq-bar {
-      width: 2px;
-      background: var(--muted);
-      border-radius: 1px;
-      opacity: 0.3;
-      animation: freqAnim 1.5s ease-in-out infinite;
-    }
+    .side-text { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: #666; writing-mode: vertical-rl; opacity: 0.6; }
+    .side-line { width: 1px; height: 80px; background: linear-gradient(to bottom, transparent, #444, transparent); opacity: 0.4; }
+    .side-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--lime); opacity: 0.5; animation: livePulse 2s ease infinite; }
+    .freq-bars { display: flex; gap: 3px; align-items: flex-end; height: 30px; }
+    .freq-bar { width: 2px; background: #555; border-radius: 1px; opacity: 0.4; animation: freqAnim 1.5s ease-in-out infinite; }
     .freq-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
     .freq-bar:nth-child(2) { height: 18px; animation-delay: 0.2s; }
     .freq-bar:nth-child(3) { height: 12px; animation-delay: 0.4s; }
     .freq-bar:nth-child(4) { height: 22px; animation-delay: 0.1s; }
     .freq-bar:nth-child(5) { height: 10px; animation-delay: 0.3s; }
-    @keyframes freqAnim {
-      0%,100% { transform: scaleY(1); opacity: 0.3; }
-      50% { transform: scaleY(1.8); opacity: 0.6; }
-    }
+    @keyframes freqAnim { 0%,100%{transform:scaleY(1);opacity:0.4} 50%{transform:scaleY(1.8);opacity:0.7} }
 
     .page {
       max-width: 760px;
@@ -235,139 +189,78 @@
     }
 
     .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.8rem 0;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.8rem 0; border-bottom: 1px solid var(--border);
     }
     .topbar-logo { display: flex; align-items: center; gap: 10px; }
     .topbar-logo svg { overflow: visible; }
-    .topbar-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-    .topbar-right { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .topbar-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); }
+    .topbar-right { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); animation: livePulse 1.5s ease infinite; }
     @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
 
-    .hero {
-      padding: 5rem 0 4rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-label {
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--lime);
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'DM Mono', monospace;
-    }
+    .hero { padding: 5rem 0 4rem; border-bottom: 1px solid var(--border); }
+    .hero-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); margin-bottom: 2rem; display: flex; align-items: center; gap: 12px; }
     .hero-label::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--lime); }
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(5rem, 16vw, 10rem);
-      line-height: 0.85;
-      letter-spacing: -0.01em;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(5rem, 16vw, 10rem); line-height: 0.85; letter-spacing: -0.01em; margin-bottom: 2.5rem; font-weight: 300; }
     .hero-title .line-1 { color: var(--white); display: block; }
-    .hero-title .line-2 {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--lime);
-      position: relative;
-    }
-    .hero-title .line-2::after {
-      content: ''; position: absolute; bottom: 6px; left: 0;
-      width: 0; height: 1px; background: var(--lime);
-      animation: lineGrow 1.4s 4.2s ease forwards;
-    }
+    .hero-title .line-2 { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--lime); position: relative; }
+    .hero-title .line-2::after { content: ''; position: absolute; bottom: 6px; left: 0; width: 0; height: 1px; background: var(--lime); animation: lineGrow 1.4s 4.2s ease forwards; }
     @keyframes lineGrow { to { width: 100%; } }
-
     .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
-    .hero-desc {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.3rem, 2.8vw, 1.7rem);
-      font-style: italic;
-      font-weight: 300;
-      color: #666;
-      line-height: 1.5;
-      max-width: 400px;
-    }
+    .hero-desc { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.8vw, 1.7rem); font-style: italic; font-weight: 300; color: #888; line-height: 1.5; max-width: 400px; }
     .hero-desc em { color: var(--white); font-style: normal; font-weight: 400; }
     .hero-stat { text-align: right; flex-shrink: 0; }
-    .hero-stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
-      color: var(--lime);
-      line-height: 1;
-      font-weight: 300;
-    }
-    .hero-stat-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; font-family: 'DM Mono', monospace; }
+    .hero-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--lime); line-height: 1; font-weight: 300; }
+    .hero-stat-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
 
     .marquee-wrap { overflow: hidden; border-bottom: 1px solid var(--border); padding: 12px 0; }
     .marquee { display: flex; gap: 3rem; animation: scroll 30s linear infinite; white-space: nowrap; width: max-content; }
-    .marquee-item { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 1rem; font-family: 'DM Mono', monospace; }
+    .marquee-item { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: #888; display: flex; align-items: center; gap: 1rem; }
     .marquee-item span { color: var(--lime); }
     @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
+    /* FEATURES — HOVER REVEAL */
     .section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
     .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
-    .section-title { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
-    .section-num { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .section-title { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+    .section-num { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); }
 
-    .features { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-    .feature {
-      background: var(--black);
-      padding: 2rem;
-      transition: background 0.2s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
+    .features-list { display: flex; flex-direction: column; }
+    .feature-row {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
       cursor: none;
+      transition: all 0.3s ease;
+      gap: 20px;
     }
-    .feature::after { content: ''; position: absolute; inset: 0; border: 1px solid transparent; border-radius: 4px; transition: border-color 0.3s ease; pointer-events: none; }
-    .feature:hover { background: #0d0d0d; transform: scale(1.02) translateY(-3px); box-shadow: 0 20px 60px rgba(200,240,90,0.08), 0 0 0 1px rgba(200,240,90,0.15); z-index: 2; }
-    .feature:hover::after { border-color: rgba(200,240,90,0.2); }
-    .feature-index { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 1.2rem; font-family: 'DM Mono', monospace; }
-    .feature-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--white);
-      margin-bottom: 8px;
+    .feature-row:first-child { border-top: 1px solid var(--border); }
+    .feature-row-left { display: flex; align-items: flex-start; gap: 24px; flex: 1; }
+    .feature-row-num { font-size: 9px; letter-spacing: 0.15em; color: #666; min-width: 30px; padding-top: 4px; transition: color 0.3s; }
+    .feature-row-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; font-weight: 400; color: #ccc; transition: color 0.3s ease; line-height: 1.2; }
+    .feature-row-desc {
+      font-size: 11px; color: #777; line-height: 1.9; letter-spacing: 0.02em;
+      max-width: 280px; text-align: right;
+      opacity: 0; transform: translateX(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
-    .feature-desc { font-size: 11px; color: #777; line-height: 1.8; letter-spacing: 0.02em; font-family: 'DM Mono', monospace; }
+    .feature-row-arrow { font-size: 16px; color: #444; transition: all 0.3s ease; padding-top: 4px; min-width: 20px; }
+    .feature-row:hover .feature-row-title { color: var(--white); }
+    .feature-row:hover .feature-row-num { color: var(--lime); }
+    .feature-row:hover .feature-row-desc { opacity: 1; transform: translateX(0); color: #999; }
+    .feature-row:hover .feature-row-arrow { color: var(--lime); transform: translateX(4px); }
 
+    /* CTA */
     .cta-section { padding: 4rem 0; }
-
     .btn-spotify {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: transparent;
-      color: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 22px 32px;
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      cursor: none;
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      background: transparent; color: var(--white);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 22px 32px; font-family: 'DM Mono', monospace; font-size: 13px;
+      letter-spacing: 0.08em; cursor: none;
       transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1px;
+      position: relative; overflow: hidden; margin-bottom: 1px;
     }
     .btn-spotify-inner { display: flex; align-items: center; gap: 14px; }
     .btn-spotify-arrow { font-size: 18px; transition: transform 0.3s ease; }
@@ -376,51 +269,119 @@
     .btn-spotify:hover { color: #000; border-color: var(--green); transform: translateY(-3px); box-shadow: 0 14px 50px rgba(29,185,84,0.35); }
     .btn-spotify:hover::before { transform: translateX(0); }
     .btn-spotify:hover .btn-spotify-arrow { transform: translateX(6px); }
-    .btn-note { font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 14px; text-align: center; font-family: 'DM Mono', monospace; }
+    .btn-note { font-size: 10px; color: #888; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 14px; text-align: center; }
 
     #connectedSection { animation: fadeUp 0.6s ease both; }
-    .connected-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(29,185,84,0.2); border-radius: 2px; padding: 7px 16px; font-size: 10px; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2.5rem; font-family: 'DM Mono', monospace; }
+    .connected-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(29,185,84,0.2); border-radius: 2px; padding: 7px 16px; font-size: 10px; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2.5rem; }
     .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: livePulse 1.5s ease infinite; }
-    .section-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; font-family: 'DM Mono', monospace; }
+    .section-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
 
     textarea {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 20px;
-      color: var(--white);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.03em;
-      resize: none;
-      outline: none;
-      min-height: 110px;
-      line-height: 2;
-      margin-bottom: 1px;
-      transition: border-color 0.2s;
+      width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 4px;
+      padding: 20px; color: var(--white); font-family: 'DM Mono', monospace; font-size: 12px;
+      letter-spacing: 0.03em; resize: none; outline: none; min-height: 110px;
+      line-height: 2; margin-bottom: 1px; transition: border-color 0.2s;
     }
     textarea:focus { border-color: rgba(200,240,90,0.35); }
-    textarea::placeholder { color: #252525; }
+    textarea::placeholder { color: #333; }
+
+    /* MODE SELECTOR */
+    .mode-selector {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 4px;
+      overflow: hidden; margin-bottom: 2rem;
+    }
+    .mode-card {
+      background: #050505; padding: 28px 24px;
+      cursor: none; transition: all 0.3s ease;
+      position: relative;
+    }
+    .mode-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--lime); transform: scaleX(0); transition: transform 0.3s ease; }
+    .mode-card.selected { background: #0d0d0d; }
+    .mode-card.selected::after { transform: scaleX(1); }
+    .mode-card:hover { background: #0a0a0a; }
+    .mode-tag { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--lime); margin-bottom: 12px; }
+    .mode-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: var(--white); margin-bottom: 8px; font-weight: 400; }
+    .mode-desc { font-size: 11px; color: #aaa; line-height: 1.8; letter-spacing: 0.02em; }
+    .mode-time { font-size: 10px; color: #888; margin-top: 14px; letter-spacing: 0.12em; }
+    .mode-card.selected .mode-title { color: var(--lime); }
+
+    /* QUESTIONS */
+    #questionsSection {
+      display: none;
+      animation: fadeUp 0.5s ease both;
+    }
+    .question-step {
+      display: none;
+      animation: fadeUp 0.4s ease both;
+    }
+    .question-step.active { display: block; }
+    .question-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .question-sub { font-size: 10px; color: #888; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.8rem; }
+    .question-progress {
+      display: flex; gap: 6px; margin-bottom: 2rem;
+    }
+    .q-dot { width: 20px; height: 2px; background: #222; border-radius: 1px; transition: background 0.3s; }
+    .q-dot.done { background: var(--lime); }
+    .q-dot.active { background: rgba(200,240,90,0.5); }
+
+    .options-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 4px;
+      overflow: hidden; margin-bottom: 1.5rem;
+    }
+    .option-btn {
+      background: #050505; padding: 18px 20px;
+      cursor: none; transition: all 0.2s ease;
+      font-family: 'DM Mono', monospace; font-size: 12px;
+      letter-spacing: 0.06em; color: #bbb;
+      border: none; text-align: left;
+      position: relative; overflow: hidden;
+    }
+    .option-btn:hover { background: #0d0d0d; color: var(--white); }
+    .option-btn.picked { background: #0d0d0d; color: var(--lime); }
+    .option-btn.picked::before { content: '✓ '; }
+    .option-emoji { font-size: 16px; display: block; margin-bottom: 6px; }
+    .option-text { font-size: 12px; }
+
+    .artist-input {
+      width: 100%; background: transparent;
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 18px 20px; color: var(--white);
+      font-family: 'DM Mono', monospace; font-size: 13px;
+      letter-spacing: 0.04em; outline: none;
+      transition: border-color 0.2s; margin-bottom: 1.5rem;
+    }
+    .artist-input:focus { border-color: rgba(200,240,90,0.4); }
+    .artist-input::placeholder { color: #333; }
+
+    .btn-next {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      background: transparent; color: var(--white);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 18px 28px; font-family: 'DM Mono', monospace; font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: none;
+      transition: all 0.3s ease;
+    }
+    .btn-next:hover { border-color: rgba(200,240,90,0.4); color: var(--lime); }
 
     .btn-analyse {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--lime);
-      color: var(--black);
-      border: none;
-      border-radius: 4px;
-      padding: 22px 32px;
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: none;
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      background: var(--lime); color: var(--black); border: none; border-radius: 4px;
+      padding: 22px 32px; font-family: 'DM Mono', monospace; font-size: 13px;
+      letter-spacing: 0.12em; text-transform: uppercase; cursor: none;
       transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .btn-analyse-arrow { font-size: 18px; transition: transform 0.3s ease; }
     .btn-analyse::before { content: ''; position: absolute; inset: 0; background: #d4f76a; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.76,0,0.24,1); }
@@ -429,49 +390,23 @@
     .btn-analyse:hover { transform: translateY(-3px); box-shadow: 0 14px 50px rgba(200,240,90,0.3); }
     .btn-analyse:hover .btn-analyse-arrow { transform: translateX(6px); }
 
+    /* RESULT */
     #result { display: none; }
     #result.visible { display: block; }
-
     .result-section { padding: 3.5rem 0; border-top: 1px solid var(--border); margin-top: 3rem; animation: fadeUp 0.7s ease both; }
     .result-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; }
-    .result-tag { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); font-family: 'DM Mono', monospace; }
-    .result-id { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); font-family: 'DM Mono', monospace; }
-
-    .result-body {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 3rem;
-      position: relative;
-      background: var(--dim);
-    }
-    .result-body::before {
-      content: '"';
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 10rem;
-      color: rgba(200,240,90,0.03);
-      position: absolute;
-      top: -2rem; left: 2rem;
-      line-height: 1;
-      pointer-events: none;
-    }
-    .result-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      font-style: italic;
-      font-weight: 300;
-      line-height: 2;
-      color: #bbb;
-      letter-spacing: 0.01em;
-      position: relative;
-      z-index: 1;
-    }
+    .result-tag { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); }
+    .result-id { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); }
+    .result-body { border: 1px solid var(--border); border-radius: 4px; padding: 3rem; position: relative; background: var(--dim); }
+    .result-body::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 10rem; color: rgba(200,240,90,0.03); position: absolute; top: -2rem; left: 2rem; line-height: 1; pointer-events: none; }
+    .result-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; font-weight: 300; line-height: 2; color: #ccc; letter-spacing: 0.01em; position: relative; z-index: 1; }
 
     .share-row { display: flex; align-items: center; gap: 10px; margin-top: 2rem; flex-wrap: wrap; }
-    .share-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
-    .share-btn { background: transparent; border: 1px solid var(--border); border-radius: 2px; padding: 8px 18px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); cursor: none; transition: all 0.2s ease; width: auto; }
+    .share-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .share-btn { background: transparent; border: 1px solid var(--border); border-radius: 2px; padding: 8px 18px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #ccc; cursor: none; transition: all 0.2s ease; width: auto; }
     .share-btn:hover { border-color: var(--lime); color: var(--lime); background: rgba(200,240,90,0.04); transform: translateY(-2px); }
 
-    .loading { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'DM Mono', monospace; }
+    .loading { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
     .dots { display: flex; gap: 5px; }
     .dots span { width: 4px; height: 4px; border-radius: 50%; background: var(--lime); animation: bounce 1.2s ease infinite; }
     .dots span:nth-child(2) { animation-delay: 0.2s; }
@@ -479,11 +414,17 @@
     @keyframes bounce { 0%,100%{transform:translateY(0);opacity:0.3} 50%{transform:translateY(-7px);opacity:1} }
 
     .footer { padding: 2.5rem 0; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .footer-left { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
-    .footer-right { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .footer-left { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .footer-right { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* FUN COUNTER */
+    .fun-stat-row { display: flex; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2rem; }
+    .fun-stat { flex: 1; padding: 16px; text-align: center; background: #050505; }
+    .fun-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--lime); font-weight: 300; }
+    .fun-stat-label { font-size: 9px; color: #777; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -596,36 +537,52 @@
       </div>
     </div>
 
+    <!-- FEATURES — HOVER REVEAL -->
     <div class="section">
       <div class="section-header">
         <div class="section-title">What it does</div>
         <div class="section-num">05 features</div>
       </div>
-      <div class="features">
-        <div class="feature">
-          <div class="feature-index">01 —</div>
-          <div class="feature-title">Real listening data</div>
-          <div class="feature-desc">Pulls your actual top artists straight from Spotify. No manual input. Pure you.</div>
+      <div class="features-list">
+        <div class="feature-row">
+          <div class="feature-row-left">
+            <span class="feature-row-num">01 —</span>
+            <span class="feature-row-title">Real listening data</span>
+          </div>
+          <div class="feature-row-desc">Pulls your actual top artists straight from Spotify. No manual input. Pure you.</div>
+          <span class="feature-row-arrow">→</span>
         </div>
-        <div class="feature">
-          <div class="feature-index">02 —</div>
-          <div class="feature-title">AI personality read</div>
-          <div class="feature-desc">A razor-sharp read of who you are based on what you actually listen to. No filter.</div>
+        <div class="feature-row">
+          <div class="feature-row-left">
+            <span class="feature-row-num">02 —</span>
+            <span class="feature-row-title">AI personality read</span>
+          </div>
+          <div class="feature-row-desc">A razor-sharp read of who you are based on what you actually listen to. No filter.</div>
+          <span class="feature-row-arrow">→</span>
         </div>
-        <div class="feature">
-          <div class="feature-index">03 —</div>
-          <div class="feature-title">Your Wavelength Mix</div>
-          <div class="feature-desc">A playlist built from your real top tracks — saved directly to your Spotify.</div>
+        <div class="feature-row">
+          <div class="feature-row-left">
+            <span class="feature-row-num">03 —</span>
+            <span class="feature-row-title">Your Wavelength Mix</span>
+          </div>
+          <div class="feature-row-desc">A playlist built from your real top tracks — saved directly to your Spotify.</div>
+          <span class="feature-row-arrow">→</span>
         </div>
-        <div class="feature">
-          <div class="feature-index">04 —</div>
-          <div class="feature-title">Private & secure</div>
-          <div class="feature-desc">We never store your data. The moment you close this tab — it's gone.</div>
+        <div class="feature-row">
+          <div class="feature-row-left">
+            <span class="feature-row-num">04 —</span>
+            <span class="feature-row-title">Private & secure</span>
+          </div>
+          <div class="feature-row-desc">We never store your data. The moment you close this tab — it's gone.</div>
+          <span class="feature-row-arrow">→</span>
         </div>
-        <div class="feature" style="grid-column: span 2;">
-          <div class="feature-index">05 —</div>
-          <div class="feature-title">Instant results</div>
-          <div class="feature-desc">Connect your Spotify and get your full personality read + playlist in seconds. No waiting, no friction.</div>
+        <div class="feature-row">
+          <div class="feature-row-left">
+            <span class="feature-row-num">05 —</span>
+            <span class="feature-row-title">Instant results</span>
+          </div>
+          <div class="feature-row-desc">Connect your Spotify and get your full personality read + playlist in seconds.</div>
+          <span class="feature-row-arrow">→</span>
         </div>
       </div>
     </div>
@@ -649,12 +606,127 @@
           <div class="dot"></div>
           Spotify connected
         </div>
+
         <div class="section-label">Your top artists</div>
         <textarea id="artists" placeholder="Loading your listening data..."></textarea>
-        <button class="btn-analyse" onclick="analyse()">
-          <span>Analyse my taste</span>
-          <span class="btn-analyse-arrow">→</span>
-        </button>
+
+        <!-- FUN STATS -->
+        <div class="fun-stat-row">
+          <div class="fun-stat">
+            <div class="fun-stat-num" id="artistCount">—</div>
+            <div class="fun-stat-label">Artists loaded</div>
+          </div>
+          <div class="fun-stat">
+            <div class="fun-stat-num">∞</div>
+            <div class="fun-stat-label">Possible reads</div>
+          </div>
+          <div class="fun-stat">
+            <div class="fun-stat-num">100%</div>
+            <div class="fun-stat-label">You</div>
+          </div>
+        </div>
+
+        <!-- MODE SELECTOR -->
+        <div class="section-label" style="margin-bottom: 14px;">How do you want your playlist?</div>
+        <div class="mode-selector">
+          <div class="mode-card selected" id="modeQuick" onclick="selectMode('quick')">
+            <div class="mode-tag">Quick</div>
+            <div class="mode-title">Instant Mix</div>
+            <div class="mode-desc">We use your top tracks directly. Ready in seconds.</div>
+            <div class="mode-time">⚡ 5 seconds</div>
+          </div>
+          <div class="mode-card" id="modePersonal" onclick="selectMode('personal')">
+            <div class="mode-tag">Deep</div>
+            <div class="mode-title">Personal Mix</div>
+            <div class="mode-desc">Answer 5 quick questions. We tailor everything to your exact mood.</div>
+            <div class="mode-time">✦ 45 seconds</div>
+          </div>
+        </div>
+
+        <!-- QUESTIONS -->
+        <div id="questionsSection">
+          <div class="question-progress">
+            <div class="q-dot active" id="qdot0"></div>
+            <div class="q-dot" id="qdot1"></div>
+            <div class="q-dot" id="qdot2"></div>
+            <div class="q-dot" id="qdot3"></div>
+            <div class="q-dot" id="qdot4"></div>
+          </div>
+
+          <!-- Q1: Mood -->
+          <div class="question-step active" id="q1">
+            <div class="question-label">What's your mood right now?</div>
+            <div class="question-sub">Be honest — we'll know if you lie</div>
+            <div class="options-grid">
+              <button class="option-btn" onclick="pickOption(this, 'mood', 'Hyped')"><span class="option-emoji">🔥</span><span class="option-text">Hyped</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'mood', 'Chill')"><span class="option-emoji">🌊</span><span class="option-text">Chill</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'mood', 'Melancholic')"><span class="option-emoji">🌧</span><span class="option-text">Melancholic</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'mood', 'Focused')"><span class="option-emoji">⚡</span><span class="option-text">Focused</span></button>
+            </div>
+            <button class="btn-next" onclick="nextQuestion(1)"><span>Next</span><span>→</span></button>
+          </div>
+
+          <!-- Q2: Purpose -->
+          <div class="question-step" id="q2">
+            <div class="question-label">This playlist is for...</div>
+            <div class="question-sub">Pick the one that hits closest</div>
+            <div class="options-grid">
+              <button class="option-btn" onclick="pickOption(this, 'purpose', 'working')"><span class="option-emoji">💻</span><span class="option-text">Working</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'purpose', 'a party')"><span class="option-emoji">🎉</span><span class="option-text">Party</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'purpose', 'driving')"><span class="option-emoji">🚗</span><span class="option-text">Driving</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'purpose', 'a late night alone')"><span class="option-emoji">🌙</span><span class="option-text">Late night</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'purpose', 'the gym')"><span class="option-emoji">💪</span><span class="option-text">Gym</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'purpose', 'doing nothing')"><span class="option-emoji">☁️</span><span class="option-text">Doing nothing</span></button>
+            </div>
+            <button class="btn-next" onclick="nextQuestion(2)"><span>Next</span><span>→</span></button>
+          </div>
+
+          <!-- Q3: Energy -->
+          <div class="question-step" id="q3">
+            <div class="question-label">Energy level?</div>
+            <div class="question-sub">No wrong answers here</div>
+            <div class="options-grid">
+              <button class="option-btn" onclick="pickOption(this, 'energy', 'low — barely alive')"><span class="option-emoji">🪫</span><span class="option-text">Low — barely alive</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'energy', 'medium — comfortable')"><span class="option-emoji">🔋</span><span class="option-text">Medium — comfortable</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'energy', 'high — ready for anything')"><span class="option-emoji">⚡</span><span class="option-text">High — ready for anything</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'energy', 'chaotic — unpredictable')"><span class="option-emoji">🌪</span><span class="option-text">Chaotic — unpredictable</span></button>
+            </div>
+            <button class="btn-next" onclick="nextQuestion(3)"><span>Next</span><span>→</span></button>
+          </div>
+
+          <!-- Q4: Decade -->
+          <div class="question-step" id="q4">
+            <div class="question-label">What era should it feel like?</div>
+            <div class="question-sub">Your inner time traveler speaks</div>
+            <div class="options-grid">
+              <button class="option-btn" onclick="pickOption(this, 'decade', 'current hits only')"><span class="option-emoji">📡</span><span class="option-text">Current hits only</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'decade', 'a mix of all eras')"><span class="option-emoji">🎭</span><span class="option-text">Mix of all eras</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'decade', '90s and 2000s nostalgia')"><span class="option-emoji">📼</span><span class="option-text">90s / 2000s nostalgia</span></button>
+              <button class="option-btn" onclick="pickOption(this, 'decade', 'timeless classics')"><span class="option-emoji">🏛</span><span class="option-text">Timeless classics</span></button>
+            </div>
+            <button class="btn-next" onclick="nextQuestion(4)"><span>Next</span><span>→</span></button>
+          </div>
+
+          <!-- Q5: Artist -->
+          <div class="question-step" id="q5">
+            <div class="question-label">One artist you want more of.</div>
+            <div class="question-sub">Could be anyone — living or not</div>
+            <input class="artist-input" id="favouriteArtistInput" type="text" placeholder="Type an artist name..."/>
+            <button class="btn-analyse" onclick="analyse()">
+              <span>Analyse my taste</span>
+              <span class="btn-analyse-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- QUICK ANALYSE BUTTON (shown when quick mode) -->
+        <div id="quickAnalyseSection">
+          <button class="btn-analyse" onclick="analyse()">
+            <span>Analyse my taste</span>
+            <span class="btn-analyse-arrow">→</span>
+          </button>
+        </div>
+
       </div>
     </div>
 
@@ -677,7 +749,7 @@
             </div>
             <div class="btn-spotify-arrow">→</div>
           </button>
-          <div id="playlistLink" style="margin-top: 1.2rem; font-size: 11px; letter-spacing: 0.08em; color: var(--muted); font-family: 'DM Mono', monospace;"></div>
+          <div id="playlistLink" style="margin-top: 1.2rem; font-size: 11px; letter-spacing: 0.08em; color: var(--muted);"></div>
         </div>
         <div class="share-row">
           <span class="share-label">Share →</span>
@@ -699,7 +771,6 @@
   <script>
     const cursor = document.getElementById('cursor')
     const cursorRing = document.getElementById('cursorRing')
-
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px'
       cursor.style.top = e.clientY + 'px'
@@ -730,18 +801,79 @@
         }
         const artistNames = data.items.map(a => a.name).join(', ')
         document.getElementById('artists').value = artistNames
+        document.getElementById('artistCount').textContent = data.items.length
       } catch (err) {
         document.getElementById('artists').value = 'Error loading artists. Try reconnecting Spotify.'
-        console.error('Spotify fetch error:', err)
       }
+    }
+
+    // MODE SELECTOR
+    let currentMode = 'quick'
+    let answers = { mood: '', purpose: '', energy: '', decade: '', favouriteArtist: '' }
+
+    function selectMode(mode) {
+      currentMode = mode
+      document.getElementById('modeQuick').classList.toggle('selected', mode === 'quick')
+      document.getElementById('modePersonal').classList.toggle('selected', mode === 'personal')
+
+      const qSection = document.getElementById('questionsSection')
+      const quickSection = document.getElementById('quickAnalyseSection')
+
+      if (mode === 'personal') {
+        qSection.style.display = 'block'
+        quickSection.style.display = 'none'
+        resetQuestions()
+      } else {
+        qSection.style.display = 'none'
+        quickSection.style.display = 'block'
+      }
+    }
+
+    function resetQuestions() {
+      currentQuestion = 1
+      answers = { mood: '', purpose: '', energy: '', decade: '', favouriteArtist: '' }
+      document.querySelectorAll('.question-step').forEach(s => s.classList.remove('active'))
+      document.getElementById('q1').classList.add('active')
+      document.querySelectorAll('.q-dot').forEach((d, i) => {
+        d.classList.remove('done', 'active')
+        if (i === 0) d.classList.add('active')
+      })
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('picked'))
+    }
+
+    let currentQuestion = 1
+
+    function pickOption(btn, key, value) {
+      const grid = btn.closest('.options-grid')
+      grid.querySelectorAll('.option-btn').forEach(b => b.classList.remove('picked'))
+      btn.classList.add('picked')
+      answers[key] = value
+    }
+
+    function nextQuestion(current) {
+      const next = current + 1
+      document.getElementById('q' + current).classList.remove('active')
+      document.getElementById('q' + next).classList.add('active')
+
+      document.getElementById('qdot' + (current - 1)).classList.remove('active')
+      document.getElementById('qdot' + (current - 1)).classList.add('done')
+      document.getElementById('qdot' + (next - 1)).classList.add('active')
+
+      currentQuestion = next
     }
 
     async function analyse() {
       let artists = document.getElementById("artists").value
       if (!artists) return
+
+      if (currentMode === 'personal') {
+        answers.favouriteArtist = document.getElementById('favouriteArtistInput').value || 'none specified'
+      }
+
       let resultBox = document.getElementById("result")
       let resultText = document.getElementById("resultText")
       let resultId = document.getElementById("resultId")
+
       const id = 'WL-' + Math.random().toString(36).substring(2,7).toUpperCase()
       resultId.textContent = id
       resultBox.classList.add("visible")
@@ -751,10 +883,20 @@
           Decoding your taste
         </div>`
       resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+      const body = { artists }
+      if (currentMode === 'personal') {
+        body.mood = answers.mood
+        body.purpose = answers.purpose
+        body.energy = answers.energy
+        body.decade = answers.decade
+        body.favouriteArtist = answers.favouriteArtist
+      }
+
       let response = await fetch("/analyse", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ artists: artists })
+        body: JSON.stringify(body)
       })
       let data = await response.json()
       resultText.innerHTML = data.result
@@ -763,7 +905,7 @@
     function copyResult() {
       const text = document.getElementById('resultText').innerText
       navigator.clipboard.writeText(text)
-      alert('Copied to clipboard!')
+      alert('Copied!')
     }
 
     function tweetResult() {
@@ -785,10 +927,15 @@
 
     async function createPlaylist() {
       document.getElementById('playlistLink').textContent = 'Creating your Wavelength Mix...'
+      const body = { token }
+      if (currentMode === 'personal') {
+        body.mood = answers.mood
+        body.purpose = answers.purpose
+      }
       const response = await fetch('/create-playlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token })
+        body: JSON.stringify(body)
       })
       const data = await response.json()
       if (data.playlistUrl) {
