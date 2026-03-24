@@ -53,94 +53,95 @@
     body:has(button:hover) .cursor { width: 20px; height: 20px; background: var(--white); }
     body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: var(--lime); }
 
-    /* INTRO */
-    #intro {
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none !important; }
+    }
+
+    .mute-btn {
       position: fixed;
-      inset: 0;
+      bottom: 24px; right: 24px;
+      z-index: 9990;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(10,10,10,0.85);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      animation: fadeIn 0.5s 4.5s ease forwards;
+    }
+    .mute-btn:hover { border-color: var(--lime); color: var(--lime); transform: scale(1.08); }
+
+    #intro {
+      position: fixed; inset: 0;
       background: var(--black);
       z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
       animation: introFadeOut 0.8s 3.4s ease forwards;
     }
     #intro svg { overflow: visible; }
+
     .intro-circle {
-      fill: none;
-      stroke: var(--lime);
-      transform-origin: center;
-      transform: scale(0);
+      fill: none; stroke: var(--lime);
+      transform-origin: 60px 60px;
       opacity: 0;
     }
-    .intro-circle:nth-child(1) { animation: ripple 1s 0.2s ease forwards; stroke-width: 1.5; opacity: 0.5; }
-    .intro-circle:nth-child(2) { animation: ripple 1s 0.5s ease forwards; stroke-width: 1; opacity: 0.35; }
-    .intro-circle:nth-child(3) { animation: ripple 1s 0.8s ease forwards; stroke-width: 0.7; opacity: 0.2; }
-    @keyframes ripple {
-      0% { transform: scale(0); opacity: 0; }
-      60% { opacity: 1; }
-      100% { transform: scale(1); opacity: inherit; }
+    .intro-circle:nth-child(1) { animation: rippleOnce 1s 0.2s ease forwards; stroke-width: 1.5; }
+    .intro-circle:nth-child(2) { animation: rippleOnce 1s 0.5s ease forwards; stroke-width: 1; }
+    .intro-circle:nth-child(3) { animation: rippleOnce 1s 0.8s ease forwards; stroke-width: 0.7; }
+
+    @keyframes rippleOnce {
+      0%   { transform: scale(0); opacity: 0; }
+      60%  { opacity: 1; }
+      100% { transform: scale(1); opacity: 0.4; }
     }
+
     .intro-wave {
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
+      stroke-dasharray: 200; stroke-dashoffset: 200;
       animation: drawWave 0.8s 0.3s ease forwards;
     }
     @keyframes drawWave { to { stroke-dashoffset: 0; } }
+
     .intro-word-1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
-      font-weight: 300;
-      color: var(--white);
-      letter-spacing: 0.15em;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: wordUp 0.8s 1s ease forwards;
-      line-height: 1;
+      font-size: 4.5rem; font-weight: 300; color: var(--white);
+      letter-spacing: 0.15em; opacity: 0; transform: translateY(20px);
+      animation: wordUp 0.8s 1s ease forwards; line-height: 1;
     }
     .intro-word-2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
-      font-weight: 300;
-      color: transparent;
-      -webkit-text-stroke: 1px var(--lime);
-      letter-spacing: 0.15em;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: wordUp 0.8s 1.3s ease forwards;
-      line-height: 1;
+      font-size: 4.5rem; font-weight: 300; color: transparent;
+      -webkit-text-stroke: 1px var(--lime); letter-spacing: 0.15em;
+      opacity: 0; transform: translateY(20px);
+      animation: wordUp 0.8s 1.3s ease forwards; line-height: 1;
     }
     .intro-tagline {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #999;
-      opacity: 0;
-      animation: wordUp 0.6s 1.8s ease forwards;
-      margin-top: 1.2rem;
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      letter-spacing: 0.3em; text-transform: uppercase; color: #999;
+      opacity: 0; animation: wordUp 0.6s 1.8s ease forwards; margin-top: 1.2rem;
     }
     @keyframes wordUp { to { opacity: 1; transform: translateY(0); } }
     @keyframes introFadeOut { to { opacity: 0; pointer-events: none; } }
 
+    .logo-ring {
+      fill: none; stroke: var(--lime); opacity: 0;
+      animation: fadeIn 0.6s 4s ease forwards;
+    }
+
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
-      );
-      pointer-events: none;
-      z-index: 998;
+      content: ''; position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+      pointer-events: none; z-index: 998;
     }
     body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
+      content: ''; position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 997;
+      pointer-events: none; z-index: 997;
     }
 
     .orb { position: fixed; border-radius: 50%; pointer-events: none; filter: blur(100px); opacity: 0.12; }
@@ -151,22 +152,18 @@
     @keyframes o2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,-80px)} }
     @keyframes o3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(50px,-60px)} 66%{transform:translate(-50px,40px)} }
 
-    /* SIDE DECORATIONS */
     .side-left {
-      position: fixed; left: 20px; top: 50%;
-      transform: translateY(-50%);
+      position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 20px;
-      z-index: 10; opacity: 0;
-      animation: fadeIn 0.6s 4s ease forwards;
+      z-index: 10; opacity: 0; animation: fadeIn 0.6s 4s ease forwards;
     }
     .side-right {
-      position: fixed; right: 20px; top: 50%;
-      transform: translateY(-50%);
+      position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 20px;
-      z-index: 10; opacity: 0;
-      animation: fadeIn 0.6s 4s ease forwards;
+      z-index: 10; opacity: 0; animation: fadeIn 0.6s 4s ease forwards;
     }
-    .side-text { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: #666; writing-mode: vertical-rl; opacity: 0.6; }
+    @media (max-width: 900px) { .side-left, .side-right { display: none; } }
+    .side-text { font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: #666; writing-mode: vertical-rl; opacity: 0.6; }
     .side-line { width: 1px; height: 80px; background: linear-gradient(to bottom, transparent, #444, transparent); opacity: 0.4; }
     .side-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--lime); opacity: 0.5; animation: livePulse 2s ease infinite; }
     .freq-bars { display: flex; gap: 3px; align-items: flex-end; height: 30px; }
@@ -179,13 +176,9 @@
     @keyframes freqAnim { 0%,100%{transform:scaleY(1);opacity:0.4} 50%{transform:scaleY(1.8);opacity:0.7} }
 
     .page {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 2rem 6rem;
-      position: relative;
-      z-index: 1;
-      opacity: 0;
-      animation: fadeIn 0.6s 3.8s ease forwards;
+      max-width: 760px; margin: 0 auto; padding: 0 2rem 6rem;
+      position: relative; z-index: 1;
+      opacity: 0; animation: fadeIn 0.6s 3.8s ease forwards;
     }
 
     .topbar {
@@ -220,48 +213,26 @@
     .marquee-item span { color: var(--lime); }
     @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* FEATURES — HOVER REVEAL */
     .section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
     .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
     .section-title { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
     .section-num { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); }
 
     .features-list { display: flex; flex-direction: column; }
-    .feature-row {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-      cursor: none;
-      transition: all 0.3s ease;
-      gap: 20px;
-    }
+    .feature-row { display: flex; align-items: flex-start; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid var(--border); transition: all 0.3s ease; gap: 20px; }
     .feature-row:first-child { border-top: 1px solid var(--border); }
     .feature-row-left { display: flex; align-items: flex-start; gap: 24px; flex: 1; }
     .feature-row-num { font-size: 9px; letter-spacing: 0.15em; color: #666; min-width: 30px; padding-top: 4px; transition: color 0.3s; }
     .feature-row-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; font-weight: 400; color: #ccc; transition: color 0.3s ease; line-height: 1.2; }
-    .feature-row-desc {
-      font-size: 11px; color: #777; line-height: 1.9; letter-spacing: 0.02em;
-      max-width: 280px; text-align: right;
-      opacity: 0; transform: translateX(10px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
+    .feature-row-desc { font-size: 11px; color: #777; line-height: 1.9; letter-spacing: 0.02em; max-width: 280px; text-align: right; opacity: 0; transform: translateX(10px); transition: opacity 0.35s ease, transform 0.35s ease; }
     .feature-row-arrow { font-size: 16px; color: #444; transition: all 0.3s ease; padding-top: 4px; min-width: 20px; }
     .feature-row:hover .feature-row-title { color: var(--white); }
     .feature-row:hover .feature-row-num { color: var(--lime); }
     .feature-row:hover .feature-row-desc { opacity: 1; transform: translateX(0); color: #999; }
     .feature-row:hover .feature-row-arrow { color: var(--lime); transform: translateX(4px); }
 
-    /* CTA */
     .cta-section { padding: 4rem 0; }
-    .btn-spotify {
-      width: 100%; display: flex; align-items: center; justify-content: space-between;
-      background: transparent; color: var(--white);
-      border: 1px solid var(--border); border-radius: 4px;
-      padding: 22px 32px; font-family: 'DM Mono', monospace; font-size: 13px;
-      letter-spacing: 0.08em; cursor: none;
-      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-      position: relative; overflow: hidden; margin-bottom: 1px;
-    }
+    .btn-spotify { width: 100%; display: flex; align-items: center; justify-content: space-between; background: transparent; color: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 22px 32px; font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.08em; cursor: pointer; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden; margin-bottom: 1px; }
     .btn-spotify-inner { display: flex; align-items: center; gap: 14px; }
     .btn-spotify-arrow { font-size: 18px; transition: transform 0.3s ease; }
     .btn-spotify::before { content: ''; position: absolute; inset: 0; background: var(--green); transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.76,0,0.24,1); z-index: 0; }
@@ -276,27 +247,12 @@
     .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: livePulse 1.5s ease infinite; }
     .section-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
 
-    textarea {
-      width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 4px;
-      padding: 20px; color: var(--white); font-family: 'DM Mono', monospace; font-size: 12px;
-      letter-spacing: 0.03em; resize: none; outline: none; min-height: 110px;
-      line-height: 2; margin-bottom: 1px; transition: border-color 0.2s;
-    }
+    textarea { width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 4px; padding: 20px; color: var(--white); font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.03em; resize: none; outline: none; min-height: 110px; line-height: 2; margin-bottom: 1px; transition: border-color 0.2s; }
     textarea:focus { border-color: rgba(200,240,90,0.35); }
     textarea::placeholder { color: #333; }
 
-    /* MODE SELECTOR */
-    .mode-selector {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border); border-radius: 4px;
-      overflow: hidden; margin-bottom: 2rem;
-    }
-    .mode-card {
-      background: #050505; padding: 28px 24px;
-      cursor: none; transition: all 0.3s ease;
-      position: relative;
-    }
+    .mode-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2rem; }
+    .mode-card { background: #050505; padding: 28px 24px; cursor: pointer; transition: all 0.3s ease; position: relative; }
     .mode-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--lime); transform: scaleX(0); transition: transform 0.3s ease; }
     .mode-card.selected { background: #0d0d0d; }
     .mode-card.selected::after { transform: scaleX(1); }
@@ -307,82 +263,32 @@
     .mode-time { font-size: 10px; color: #888; margin-top: 14px; letter-spacing: 0.12em; }
     .mode-card.selected .mode-title { color: var(--lime); }
 
-    /* QUESTIONS */
-    #questionsSection {
-      display: none;
-      animation: fadeUp 0.5s ease both;
-    }
-    .question-step {
-      display: none;
-      animation: fadeUp 0.4s ease both;
-    }
+    #questionsSection { display: none; animation: fadeUp 0.5s ease both; }
+    .question-step { display: none; animation: fadeUp 0.4s ease both; }
     .question-step.active { display: block; }
-    .question-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-style: italic;
-      font-weight: 300;
-      color: var(--white);
-      margin-bottom: 0.4rem;
-      line-height: 1.3;
-    }
+    .question-label { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; font-weight: 300; color: var(--white); margin-bottom: 0.4rem; line-height: 1.3; }
     .question-sub { font-size: 10px; color: #888; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.8rem; }
-    .question-progress {
-      display: flex; gap: 6px; margin-bottom: 2rem;
-    }
+    .question-progress { display: flex; gap: 6px; margin-bottom: 2rem; }
     .q-dot { width: 20px; height: 2px; background: #222; border-radius: 1px; transition: background 0.3s; }
     .q-dot.done { background: var(--lime); }
     .q-dot.active { background: rgba(200,240,90,0.5); }
 
-    .options-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border); border-radius: 4px;
-      overflow: hidden; margin-bottom: 1.5rem;
-    }
-    .option-btn {
-      background: #050505; padding: 18px 20px;
-      cursor: none; transition: all 0.2s ease;
-      font-family: 'DM Mono', monospace; font-size: 12px;
-      letter-spacing: 0.06em; color: #bbb;
-      border: none; text-align: left;
-      position: relative; overflow: hidden;
-    }
+    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 1.5rem; }
+    .option-btn { background: #050505; padding: 18px 20px; cursor: pointer; transition: all 0.2s ease; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; color: #bbb; border: none; text-align: left; position: relative; overflow: hidden; }
     .option-btn:hover { background: #0d0d0d; color: var(--white); }
     .option-btn.picked { background: #0d0d0d; color: var(--lime); }
     .option-btn.picked::before { content: '✓ '; }
     .option-emoji { font-size: 16px; display: block; margin-bottom: 6px; }
     .option-text { font-size: 12px; }
 
-    .artist-input {
-      width: 100%; background: transparent;
-      border: 1px solid var(--border); border-radius: 4px;
-      padding: 18px 20px; color: var(--white);
-      font-family: 'DM Mono', monospace; font-size: 13px;
-      letter-spacing: 0.04em; outline: none;
-      transition: border-color 0.2s; margin-bottom: 1.5rem;
-    }
+    .artist-input { width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; color: var(--white); font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.04em; outline: none; transition: border-color 0.2s; margin-bottom: 1.5rem; }
     .artist-input:focus { border-color: rgba(200,240,90,0.4); }
     .artist-input::placeholder { color: #333; }
 
-    .btn-next {
-      width: 100%; display: flex; align-items: center; justify-content: space-between;
-      background: transparent; color: var(--white);
-      border: 1px solid var(--border); border-radius: 4px;
-      padding: 18px 28px; font-family: 'DM Mono', monospace; font-size: 12px;
-      letter-spacing: 0.1em; text-transform: uppercase; cursor: none;
-      transition: all 0.3s ease;
-    }
+    .btn-next { width: 100%; display: flex; align-items: center; justify-content: space-between; background: transparent; color: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 18px 28px; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
     .btn-next:hover { border-color: rgba(200,240,90,0.4); color: var(--lime); }
 
-    .btn-analyse {
-      width: 100%; display: flex; align-items: center; justify-content: space-between;
-      background: var(--lime); color: var(--black); border: none; border-radius: 4px;
-      padding: 22px 32px; font-family: 'DM Mono', monospace; font-size: 13px;
-      letter-spacing: 0.12em; text-transform: uppercase; cursor: none;
-      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-      position: relative; overflow: hidden;
-    }
+    .btn-analyse { width: 100%; display: flex; align-items: center; justify-content: space-between; background: var(--lime); color: var(--black); border: none; border-radius: 4px; padding: 22px 32px; font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden; }
     .btn-analyse-arrow { font-size: 18px; transition: transform 0.3s ease; }
     .btn-analyse::before { content: ''; position: absolute; inset: 0; background: #d4f76a; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.76,0,0.24,1); }
     .btn-analyse > * { position: relative; z-index: 1; }
@@ -390,7 +296,6 @@
     .btn-analyse:hover { transform: translateY(-3px); box-shadow: 0 14px 50px rgba(200,240,90,0.3); }
     .btn-analyse:hover .btn-analyse-arrow { transform: translateX(6px); }
 
-    /* RESULT */
     #result { display: none; }
     #result.visible { display: block; }
     .result-section { padding: 3.5rem 0; border-top: 1px solid var(--border); margin-top: 3rem; animation: fadeUp 0.7s ease both; }
@@ -403,7 +308,7 @@
 
     .share-row { display: flex; align-items: center; gap: 10px; margin-top: 2rem; flex-wrap: wrap; }
     .share-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-    .share-btn { background: transparent; border: 1px solid var(--border); border-radius: 2px; padding: 8px 18px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #ccc; cursor: none; transition: all 0.2s ease; width: auto; }
+    .share-btn { background: transparent; border: 1px solid var(--border); border-radius: 2px; padding: 8px 18px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #ccc; cursor: pointer; transition: all 0.2s ease; }
     .share-btn:hover { border-color: var(--lime); color: var(--lime); background: rgba(200,240,90,0.04); transform: translateY(-2px); }
 
     .loading { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -413,26 +318,60 @@
     .dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes bounce { 0%,100%{transform:translateY(0);opacity:0.3} 50%{transform:translateY(-7px);opacity:1} }
 
+    .swipe-section { margin-top: 2rem; animation: fadeUp 0.6s ease both; }
+    .swipe-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .swipe-tag { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); }
+    .swipe-counter-text { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); }
+    .swipe-arena { position: relative; height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+    .swipe-card { position: absolute; width: 100%; background: var(--dim); border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px; display: flex; align-items: center; gap: 20px; transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1), opacity 0.38s ease; z-index: 1; }
+    .swipe-card.peek { transform: scale(0.96) translateY(10px); opacity: 0.35; z-index: 0; pointer-events: none; }
+    .swipe-card.go-left { transform: translateX(-130%) rotate(-12deg); opacity: 0; pointer-events: none; }
+    .swipe-card.go-right { transform: translateX(130%) rotate(12deg); opacity: 0; pointer-events: none; }
+    .swipe-album { width: 80px; height: 80px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: #1a1a1a; }
+    .swipe-info { flex: 1; }
+    .swipe-track { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; font-weight: 400; color: var(--white); margin-bottom: 6px; line-height: 1.2; }
+    .swipe-artist { font-size: 11px; letter-spacing: 0.08em; color: var(--muted); }
+    .swipe-btns { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 1.5rem; }
+    .swipe-btn-skip { width: 56px; height: 56px; border-radius: 50%; background: transparent; border: 1px solid var(--border); color: var(--red); font-size: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; }
+    .swipe-btn-save { width: 64px; height: 64px; border-radius: 50%; background: transparent; border: 1px solid rgba(29,185,84,0.3); color: var(--green); font-size: 24px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; }
+    .swipe-btn-skip:hover { background: rgba(255,60,60,0.08); border-color: var(--red); transform: scale(1.08); }
+    .swipe-btn-save:hover { background: rgba(29,185,84,0.08); border-color: var(--green); transform: scale(1.08); }
+    .swipe-hint { text-align: center; font-size: 10px; color: #555; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .saved-section { margin-top: 2rem; animation: fadeUp 0.6s ease both; }
+    .saved-header { margin-bottom: 1.5rem; }
+    .saved-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; font-weight: 300; color: var(--white); margin-bottom: 6px; }
+    .saved-sub { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .saved-track-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); animation: fadeUp 0.4s ease both; }
+    .saved-track-row:first-child { border-top: 1px solid var(--border); }
+    .saved-track-num { font-size: 10px; color: #555; letter-spacing: 0.1em; min-width: 24px; }
+    .saved-track-img { width: 44px; height: 44px; border-radius: 4px; object-fit: cover; background: #1a1a1a; flex-shrink: 0; }
+    .saved-track-info { flex: 1; }
+    .saved-track-name { font-size: 13px; color: var(--white); font-weight: 400; margin-bottom: 2px; }
+    .saved-track-artist { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+    .saved-open-btn { background: transparent; border: 1px solid rgba(29,185,84,0.25); color: var(--green); border-radius: 2px; padding: 7px 16px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+    .saved-open-btn:hover { background: rgba(29,185,84,0.08); border-color: var(--green); transform: translateY(-1px); }
+    .saved-empty { text-align: center; padding: 3rem; font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
+
+    .fun-stat-row { display: flex; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2rem; }
+    .fun-stat { flex: 1; padding: 16px; text-align: center; background: #050505; }
+    .fun-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--lime); font-weight: 300; }
+    .fun-stat-label { font-size: 9px; color: #777; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
+
     .footer { padding: 2.5rem 0; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .footer-left { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
     .footer-right { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-
-    /* FUN COUNTER */
-    .fun-stat-row { display: flex; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2rem; }
-    .fun-stat { flex: 1; padding: 16px; text-align: center; background: #050505; }
-    .fun-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--lime); font-weight: 300; }
-    .fun-stat-label { font-size: 9px; color: #777; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4px; }
   </style>
 </head>
 <body>
 
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+  <button class="mute-btn" id="muteBtn" onclick="toggleMute()">♪</button>
 
-  <!-- INTRO -->
   <div id="intro">
     <svg width="120" height="120" viewBox="0 0 120 120">
       <circle class="intro-circle" cx="60" cy="60" r="55"/>
@@ -440,44 +379,26 @@
       <circle class="intro-circle" cx="60" cy="60" r="28"/>
       <path class="intro-wave" d="M30 60 Q40 40 50 60 Q60 80 70 60 Q80 40 90 60" fill="none" stroke="#c8f05a" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
-    <div style="text-align:center; margin-top: 2rem;">
+    <div style="text-align:center;margin-top:2rem">
       <div class="intro-word-1">Wave</div>
       <div class="intro-word-2">length</div>
       <div class="intro-tagline">You are what you listen to</div>
     </div>
   </div>
 
-  <!-- SIDE DECORATIONS -->
   <div class="side-left">
-    <div class="side-dot"></div>
-    <div class="side-line"></div>
+    <div class="side-dot"></div><div class="side-line"></div>
     <div class="side-text">Music Intelligence</div>
     <div class="side-line"></div>
-    <div class="freq-bars">
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-    </div>
-    <div class="side-line"></div>
-    <div class="side-dot"></div>
+    <div class="freq-bars"><div class="freq-bar"></div><div class="freq-bar"></div><div class="freq-bar"></div><div class="freq-bar"></div><div class="freq-bar"></div></div>
+    <div class="side-line"></div><div class="side-dot"></div>
   </div>
-
   <div class="side-right">
-    <div class="side-dot"></div>
-    <div class="side-line"></div>
+    <div class="side-dot"></div><div class="side-line"></div>
     <div class="side-text">© 2026 Wavelength</div>
     <div class="side-line"></div>
-    <div class="freq-bars">
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-      <div class="freq-bar"></div>
-    </div>
-    <div class="side-line"></div>
-    <div class="side-dot"></div>
+    <div class="freq-bars"><div class="freq-bar"></div><div class="freq-bar"></div><div class="freq-bar"></div><div class="freq-bar"></div><div class="freq-bar"></div></div>
+    <div class="side-line"></div><div class="side-dot"></div>
   </div>
 
   <div class="orb orb-1"></div>
@@ -485,21 +406,17 @@
   <div class="orb orb-3"></div>
 
   <div class="page">
-
     <div class="topbar">
       <div class="topbar-logo">
         <svg width="28" height="28" viewBox="0 0 60 60" overflow="visible">
-          <circle cx="30" cy="30" r="28" fill="none" stroke="#c8f05a" stroke-width="1" opacity="0.4"/>
-          <circle cx="30" cy="30" r="20" fill="none" stroke="#c8f05a" stroke-width="0.7" opacity="0.25"/>
-          <circle cx="30" cy="30" r="12" fill="none" stroke="#c8f05a" stroke-width="0.5" opacity="0.15"/>
+          <circle class="logo-ring" cx="30" cy="30" r="28" stroke="#c8f05a" stroke-width="1" opacity="0.4"/>
+          <circle class="logo-ring" cx="30" cy="30" r="20" stroke="#c8f05a" stroke-width="0.7" opacity="0.25"/>
+          <circle class="logo-ring" cx="30" cy="30" r="12" stroke="#c8f05a" stroke-width="0.5" opacity="0.15"/>
           <path d="M14 30 Q19 20 24 30 Q29 40 34 30 Q39 20 44 30" fill="none" stroke="#c8f05a" stroke-width="2" stroke-linecap="round"/>
         </svg>
         <span class="topbar-name">Wavelength</span>
       </div>
-      <div class="topbar-right">
-        <div class="live-dot"></div>
-        Live
-      </div>
+      <div class="topbar-right"><div class="live-dot"></div>Live</div>
     </div>
 
     <div class="hero">
@@ -509,10 +426,7 @@
         <span class="line-2">length</span>
       </div>
       <div class="hero-bottom">
-        <p class="hero-desc">
-          You are what you listen to.<br>
-          <em>Let's find out who that is.</em>
-        </p>
+        <p class="hero-desc">You are what you listen to.<br><em>Let's find out who that is.</em></p>
         <div class="hero-stat">
           <div class="hero-stat-num">∞</div>
           <div class="hero-stat-label">Possible profiles</div>
@@ -537,53 +451,17 @@
       </div>
     </div>
 
-    <!-- FEATURES — HOVER REVEAL -->
     <div class="section">
       <div class="section-header">
         <div class="section-title">What it does</div>
         <div class="section-num">05 features</div>
       </div>
       <div class="features-list">
-        <div class="feature-row">
-          <div class="feature-row-left">
-            <span class="feature-row-num">01 —</span>
-            <span class="feature-row-title">Real listening data</span>
-          </div>
-          <div class="feature-row-desc">Pulls your actual top artists straight from Spotify. No manual input. Pure you.</div>
-          <span class="feature-row-arrow">→</span>
-        </div>
-        <div class="feature-row">
-          <div class="feature-row-left">
-            <span class="feature-row-num">02 —</span>
-            <span class="feature-row-title">AI personality read</span>
-          </div>
-          <div class="feature-row-desc">A razor-sharp read of who you are based on what you actually listen to. No filter.</div>
-          <span class="feature-row-arrow">→</span>
-        </div>
-        <div class="feature-row">
-          <div class="feature-row-left">
-            <span class="feature-row-num">03 —</span>
-            <span class="feature-row-title">Your Wavelength Mix</span>
-          </div>
-          <div class="feature-row-desc">A playlist built from your real top tracks — saved directly to your Spotify.</div>
-          <span class="feature-row-arrow">→</span>
-        </div>
-        <div class="feature-row">
-          <div class="feature-row-left">
-            <span class="feature-row-num">04 —</span>
-            <span class="feature-row-title">Private & secure</span>
-          </div>
-          <div class="feature-row-desc">We never store your data. The moment you close this tab — it's gone.</div>
-          <span class="feature-row-arrow">→</span>
-        </div>
-        <div class="feature-row">
-          <div class="feature-row-left">
-            <span class="feature-row-num">05 —</span>
-            <span class="feature-row-title">Instant results</span>
-          </div>
-          <div class="feature-row-desc">Connect your Spotify and get your full personality read + playlist in seconds.</div>
-          <span class="feature-row-arrow">→</span>
-        </div>
+        <div class="feature-row"><div class="feature-row-left"><span class="feature-row-num">01 —</span><span class="feature-row-title">Real listening data</span></div><div class="feature-row-desc">Pulls your actual top artists straight from Spotify. No manual input. Pure you.</div><span class="feature-row-arrow">→</span></div>
+        <div class="feature-row"><div class="feature-row-left"><span class="feature-row-num">02 —</span><span class="feature-row-title">AI personality read</span></div><div class="feature-row-desc">A razor-sharp read of who you are based on what you actually listen to. No filter.</div><span class="feature-row-arrow">→</span></div>
+        <div class="feature-row"><div class="feature-row-left"><span class="feature-row-num">03 —</span><span class="feature-row-title">Your Wavelength Mix</span></div><div class="feature-row-desc">Swipe through your top 30 tracks. Heart the ones you want. Open each directly in Spotify.</div><span class="feature-row-arrow">→</span></div>
+        <div class="feature-row"><div class="feature-row-left"><span class="feature-row-num">04 —</span><span class="feature-row-title">Private & secure</span></div><div class="feature-row-desc">We never store your data. The moment you close this tab — it's gone.</div><span class="feature-row-arrow">→</span></div>
+        <div class="feature-row"><div class="feature-row-left"><span class="feature-row-num">05 —</span><span class="feature-row-title">Instant results</span></div><div class="feature-row-desc">Connect your Spotify and get your full personality read + playlist in seconds.</div><span class="feature-row-arrow">→</span></div>
       </div>
     </div>
 
@@ -591,9 +469,7 @@
       <div id="landingSection">
         <button class="btn-spotify" onclick="connectSpotify()">
           <div class="btn-spotify-inner">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.419 1.56-.299.421-1.02.599-1.559.3z"/>
-            </svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
             Connect with Spotify
           </div>
           <div class="btn-spotify-arrow">→</div>
@@ -602,131 +478,79 @@
       </div>
 
       <div id="connectedSection" style="display:none">
-        <div class="connected-badge">
-          <div class="dot"></div>
-          Spotify connected
-        </div>
-
+        <div class="connected-badge"><div class="dot"></div>Spotify connected</div>
         <div class="section-label">Your top artists</div>
         <textarea id="artists" placeholder="Loading your listening data..."></textarea>
-
-        <!-- FUN STATS -->
         <div class="fun-stat-row">
-          <div class="fun-stat">
-            <div class="fun-stat-num" id="artistCount">—</div>
-            <div class="fun-stat-label">Artists loaded</div>
-          </div>
-          <div class="fun-stat">
-            <div class="fun-stat-num">∞</div>
-            <div class="fun-stat-label">Possible reads</div>
-          </div>
-          <div class="fun-stat">
-            <div class="fun-stat-num">100%</div>
-            <div class="fun-stat-label">You</div>
-          </div>
+          <div class="fun-stat"><div class="fun-stat-num" id="artistCount">—</div><div class="fun-stat-label">Artists loaded</div></div>
+          <div class="fun-stat"><div class="fun-stat-num">∞</div><div class="fun-stat-label">Possible reads</div></div>
+          <div class="fun-stat"><div class="fun-stat-num">100%</div><div class="fun-stat-label">You</div></div>
         </div>
-
-        <!-- MODE SELECTOR -->
-        <div class="section-label" style="margin-bottom: 14px;">How do you want your playlist?</div>
+        <div class="section-label" style="margin-bottom:14px">How do you want your playlist?</div>
         <div class="mode-selector">
-          <div class="mode-card selected" id="modeQuick" onclick="selectMode('quick')">
-            <div class="mode-tag">Quick</div>
-            <div class="mode-title">Instant Mix</div>
-            <div class="mode-desc">We use your top tracks directly. Ready in seconds.</div>
-            <div class="mode-time">⚡ 5 seconds</div>
-          </div>
-          <div class="mode-card" id="modePersonal" onclick="selectMode('personal')">
-            <div class="mode-tag">Deep</div>
-            <div class="mode-title">Personal Mix</div>
-            <div class="mode-desc">Answer 5 quick questions. We tailor everything to your exact mood.</div>
-            <div class="mode-time">✦ 45 seconds</div>
-          </div>
+          <div class="mode-card selected" id="modeQuick" onclick="selectMode('quick')"><div class="mode-tag">Quick</div><div class="mode-title">Instant Mix</div><div class="mode-desc">We use your top tracks directly. Ready in seconds.</div><div class="mode-time">⚡ 5 seconds</div></div>
+          <div class="mode-card" id="modePersonal" onclick="selectMode('personal')"><div class="mode-tag">Deep</div><div class="mode-title">Personal Mix</div><div class="mode-desc">Answer 5 quick questions. We tailor everything to your exact mood.</div><div class="mode-time">✦ 45 seconds</div></div>
         </div>
-
-        <!-- QUESTIONS -->
         <div id="questionsSection">
           <div class="question-progress">
-            <div class="q-dot active" id="qdot0"></div>
-            <div class="q-dot" id="qdot1"></div>
-            <div class="q-dot" id="qdot2"></div>
-            <div class="q-dot" id="qdot3"></div>
-            <div class="q-dot" id="qdot4"></div>
+            <div class="q-dot active" id="qdot0"></div><div class="q-dot" id="qdot1"></div><div class="q-dot" id="qdot2"></div><div class="q-dot" id="qdot3"></div><div class="q-dot" id="qdot4"></div>
           </div>
-
-          <!-- Q1: Mood -->
           <div class="question-step active" id="q1">
             <div class="question-label">What's your mood right now?</div>
             <div class="question-sub">Be honest — we'll know if you lie</div>
             <div class="options-grid">
-              <button class="option-btn" onclick="pickOption(this, 'mood', 'Hyped')"><span class="option-emoji">🔥</span><span class="option-text">Hyped</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'mood', 'Chill')"><span class="option-emoji">🌊</span><span class="option-text">Chill</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'mood', 'Melancholic')"><span class="option-emoji">🌧</span><span class="option-text">Melancholic</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'mood', 'Focused')"><span class="option-emoji">⚡</span><span class="option-text">Focused</span></button>
+              <button class="option-btn" onclick="pickOption(this,'mood','Hyped')"><span class="option-emoji">🔥</span><span class="option-text">Hyped</span></button>
+              <button class="option-btn" onclick="pickOption(this,'mood','Chill')"><span class="option-emoji">🌊</span><span class="option-text">Chill</span></button>
+              <button class="option-btn" onclick="pickOption(this,'mood','Melancholic')"><span class="option-emoji">🌧</span><span class="option-text">Melancholic</span></button>
+              <button class="option-btn" onclick="pickOption(this,'mood','Focused')"><span class="option-emoji">⚡</span><span class="option-text">Focused</span></button>
             </div>
             <button class="btn-next" onclick="nextQuestion(1)"><span>Next</span><span>→</span></button>
           </div>
-
-          <!-- Q2: Purpose -->
           <div class="question-step" id="q2">
             <div class="question-label">This playlist is for...</div>
             <div class="question-sub">Pick the one that hits closest</div>
             <div class="options-grid">
-              <button class="option-btn" onclick="pickOption(this, 'purpose', 'working')"><span class="option-emoji">💻</span><span class="option-text">Working</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'purpose', 'a party')"><span class="option-emoji">🎉</span><span class="option-text">Party</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'purpose', 'driving')"><span class="option-emoji">🚗</span><span class="option-text">Driving</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'purpose', 'a late night alone')"><span class="option-emoji">🌙</span><span class="option-text">Late night</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'purpose', 'the gym')"><span class="option-emoji">💪</span><span class="option-text">Gym</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'purpose', 'doing nothing')"><span class="option-emoji">☁️</span><span class="option-text">Doing nothing</span></button>
+              <button class="option-btn" onclick="pickOption(this,'purpose','working')"><span class="option-emoji">💻</span><span class="option-text">Working</span></button>
+              <button class="option-btn" onclick="pickOption(this,'purpose','a party')"><span class="option-emoji">🎉</span><span class="option-text">Party</span></button>
+              <button class="option-btn" onclick="pickOption(this,'purpose','driving')"><span class="option-emoji">🚗</span><span class="option-text">Driving</span></button>
+              <button class="option-btn" onclick="pickOption(this,'purpose','a late night alone')"><span class="option-emoji">🌙</span><span class="option-text">Late night</span></button>
+              <button class="option-btn" onclick="pickOption(this,'purpose','the gym')"><span class="option-emoji">💪</span><span class="option-text">Gym</span></button>
+              <button class="option-btn" onclick="pickOption(this,'purpose','doing nothing')"><span class="option-emoji">☁️</span><span class="option-text">Doing nothing</span></button>
             </div>
             <button class="btn-next" onclick="nextQuestion(2)"><span>Next</span><span>→</span></button>
           </div>
-
-          <!-- Q3: Energy -->
           <div class="question-step" id="q3">
             <div class="question-label">Energy level?</div>
             <div class="question-sub">No wrong answers here</div>
             <div class="options-grid">
-              <button class="option-btn" onclick="pickOption(this, 'energy', 'low — barely alive')"><span class="option-emoji">🪫</span><span class="option-text">Low — barely alive</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'energy', 'medium — comfortable')"><span class="option-emoji">🔋</span><span class="option-text">Medium — comfortable</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'energy', 'high — ready for anything')"><span class="option-emoji">⚡</span><span class="option-text">High — ready for anything</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'energy', 'chaotic — unpredictable')"><span class="option-emoji">🌪</span><span class="option-text">Chaotic — unpredictable</span></button>
+              <button class="option-btn" onclick="pickOption(this,'energy','low — barely alive')"><span class="option-emoji">🪫</span><span class="option-text">Low — barely alive</span></button>
+              <button class="option-btn" onclick="pickOption(this,'energy','medium — comfortable')"><span class="option-emoji">🔋</span><span class="option-text">Medium — comfortable</span></button>
+              <button class="option-btn" onclick="pickOption(this,'energy','high — ready for anything')"><span class="option-emoji">⚡</span><span class="option-text">High — ready for anything</span></button>
+              <button class="option-btn" onclick="pickOption(this,'energy','chaotic — unpredictable')"><span class="option-emoji">🌪</span><span class="option-text">Chaotic — unpredictable</span></button>
             </div>
             <button class="btn-next" onclick="nextQuestion(3)"><span>Next</span><span>→</span></button>
           </div>
-
-          <!-- Q4: Decade -->
           <div class="question-step" id="q4">
             <div class="question-label">What era should it feel like?</div>
             <div class="question-sub">Your inner time traveler speaks</div>
             <div class="options-grid">
-              <button class="option-btn" onclick="pickOption(this, 'decade', 'current hits only')"><span class="option-emoji">📡</span><span class="option-text">Current hits only</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'decade', 'a mix of all eras')"><span class="option-emoji">🎭</span><span class="option-text">Mix of all eras</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'decade', '90s and 2000s nostalgia')"><span class="option-emoji">📼</span><span class="option-text">90s / 2000s nostalgia</span></button>
-              <button class="option-btn" onclick="pickOption(this, 'decade', 'timeless classics')"><span class="option-emoji">🏛</span><span class="option-text">Timeless classics</span></button>
+              <button class="option-btn" onclick="pickOption(this,'decade','current hits only')"><span class="option-emoji">📡</span><span class="option-text">Current hits only</span></button>
+              <button class="option-btn" onclick="pickOption(this,'decade','a mix of all eras')"><span class="option-emoji">🎭</span><span class="option-text">Mix of all eras</span></button>
+              <button class="option-btn" onclick="pickOption(this,'decade','90s and 2000s nostalgia')"><span class="option-emoji">📼</span><span class="option-text">90s / 2000s nostalgia</span></button>
+              <button class="option-btn" onclick="pickOption(this,'decade','timeless classics')"><span class="option-emoji">🏛</span><span class="option-text">Timeless classics</span></button>
             </div>
             <button class="btn-next" onclick="nextQuestion(4)"><span>Next</span><span>→</span></button>
           </div>
-
-          <!-- Q5: Artist -->
           <div class="question-step" id="q5">
             <div class="question-label">One artist you want more of.</div>
             <div class="question-sub">Could be anyone — living or not</div>
             <input class="artist-input" id="favouriteArtistInput" type="text" placeholder="Type an artist name..."/>
-            <button class="btn-analyse" onclick="analyse()">
-              <span>Analyse my taste</span>
-              <span class="btn-analyse-arrow">→</span>
-            </button>
+            <button class="btn-analyse" onclick="analyse()"><span>Analyse my taste</span><span class="btn-analyse-arrow">→</span></button>
           </div>
         </div>
-
-        <!-- QUICK ANALYSE BUTTON (shown when quick mode) -->
         <div id="quickAnalyseSection">
-          <button class="btn-analyse" onclick="analyse()">
-            <span>Analyse my taste</span>
-            <span class="btn-analyse-arrow">→</span>
-          </button>
+          <button class="btn-analyse" onclick="analyse()"><span>Analyse my taste</span><span class="btn-analyse-arrow">→</span></button>
         </div>
-
       </div>
     </div>
 
@@ -739,17 +563,46 @@
         <div class="result-body">
           <div class="result-text" id="resultText"></div>
         </div>
-        <div id="playlistSection" style="margin-top: 2rem;">
-          <button class="btn-spotify" onclick="createPlaylist()">
+        <div id="playlistSection" style="margin-top:2rem">
+          <button class="btn-spotify" onclick="startSwipe()">
             <div class="btn-spotify-inner">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.419 1.56-.299.421-1.02.599-1.559.3z"/>
-              </svg>
-              Generate My Wavelength Mix
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+              Build My Wavelength Mix
             </div>
             <div class="btn-spotify-arrow">→</div>
           </button>
-          <div id="playlistLink" style="margin-top: 1.2rem; font-size: 11px; letter-spacing: 0.08em; color: var(--muted);"></div>
+        </div>
+        <div id="swipeSection" style="display:none">
+          <div class="swipe-section">
+            <div class="swipe-header">
+              <div class="swipe-tag">Your Mix — Swipe to build</div>
+              <div class="swipe-counter-text"><span id="swipeIndex">1</span> / <span id="swipeTotal">30</span></div>
+            </div>
+            <div class="swipe-arena">
+              <div class="swipe-card peek" id="swipeCardPeek"></div>
+              <div class="swipe-card" id="swipeCard">
+                <img class="swipe-album" id="swipeAlbum" src="" alt=""/>
+                <div class="swipe-info">
+                  <div class="swipe-track" id="swipeTrack">Loading...</div>
+                  <div class="swipe-artist" id="swipeArtist">—</div>
+                </div>
+              </div>
+            </div>
+            <div class="swipe-btns">
+              <button class="swipe-btn-skip" onclick="swipeTrack(false)">✕</button>
+              <button class="swipe-btn-save" onclick="swipeTrack(true)">♥</button>
+            </div>
+            <div class="swipe-hint">♥ keep &nbsp;·&nbsp; ✕ skip</div>
+          </div>
+        </div>
+        <div id="savedSection" style="display:none">
+          <div class="saved-section">
+            <div class="saved-header">
+              <div class="saved-title" id="savedTitle">Your Wavelength Mix</div>
+              <div class="saved-sub"><span id="savedCount">0</span> tracks saved · tap to open in Spotify</div>
+            </div>
+            <div id="savedList"></div>
+          </div>
         </div>
         <div class="share-row">
           <span class="share-label">Share →</span>
@@ -765,183 +618,270 @@
       <div class="footer-left">© 2026 Wavelength</div>
       <div class="footer-right">Built with Groq + Spotify</div>
     </div>
-
   </div>
 
   <script>
     const cursor = document.getElementById('cursor')
     const cursorRing = document.getElementById('cursorRing')
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px'
-      cursor.style.top = e.clientY + 'px'
-      cursorRing.style.left = e.clientX + 'px'
-      cursorRing.style.top = e.clientY + 'px'
-    })
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches
+    if (!isTouch) {
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px'
+        cursor.style.top = e.clientY + 'px'
+        cursorRing.style.left = e.clientX + 'px'
+        cursorRing.style.top = e.clientY + 'px'
+      })
+    }
+
+    const AC = new (window.AudioContext || window.webkitAudioContext)()
+    let musicMuted = false
+    let masterGain = null
+    let musicStarted = false
+
+    function resumeAC() { if (AC.state === 'suspended') AC.resume() }
+
+    function playClick() {
+      resumeAC()
+      const o = AC.createOscillator(), g = AC.createGain()
+      o.connect(g); g.connect(AC.destination)
+      o.frequency.setValueAtTime(1200, AC.currentTime)
+      o.frequency.exponentialRampToValueAtTime(800, AC.currentTime + 0.05)
+      g.gain.setValueAtTime(0.1, AC.currentTime)
+      g.gain.exponentialRampToValueAtTime(0.001, AC.currentTime + 0.08)
+      o.start(); o.stop(AC.currentTime + 0.08)
+    }
+
+    function playHeart() {
+      resumeAC()
+      ;[523, 659].forEach((f, i) => {
+        const o = AC.createOscillator(), g = AC.createGain()
+        o.connect(g); g.connect(AC.destination)
+        o.frequency.value = f; o.type = 'sine'
+        const t = AC.currentTime + i * 0.09
+        g.gain.setValueAtTime(0.09, t)
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.18)
+        o.start(t); o.stop(t + 0.18)
+      })
+    }
+
+    function startBackgroundMusic() {
+      resumeAC()
+      if (musicStarted) return
+      musicStarted = true
+      masterGain = AC.createGain()
+      masterGain.gain.setValueAtTime(0, AC.currentTime)
+      masterGain.gain.linearRampToValueAtTime(0.055, AC.currentTime + 5)
+      masterGain.connect(AC.destination)
+      const bpm = 122, beat = 60 / bpm
+
+      function bass(time) {
+        const pattern = [0,0,7,0,5,0,3,0], root = 55
+        pattern.forEach((semi, i) => {
+          const freq = root * Math.pow(2, semi / 12)
+          const t = time + i * beat * 0.5
+          const o = AC.createOscillator(), g = AC.createGain(), f = AC.createBiquadFilter()
+          f.type = 'lowpass'; f.frequency.setValueAtTime(180, t); f.frequency.linearRampToValueAtTime(380, t + beat * 0.3)
+          o.type = 'sawtooth'; o.frequency.value = freq
+          o.connect(f); f.connect(g); g.connect(masterGain)
+          g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.55, t + 0.01); g.gain.linearRampToValueAtTime(0, t + beat * 0.44)
+          o.start(t); o.stop(t + beat * 0.5)
+        })
+        setTimeout(() => bass(AC.currentTime + 0.05), (beat * 4 - 0.05) * 1000)
+      }
+
+      function hihat(time) {
+        for (let i = 0; i < 16; i++) {
+          const t = time + i * beat * 0.5
+          const buf = AC.createBuffer(1, AC.sampleRate * 0.04, AC.sampleRate)
+          const d = buf.getChannelData(0)
+          for (let j = 0; j < d.length; j++) d[j] = Math.random() * 2 - 1
+          const s = AC.createBufferSource(), g = AC.createGain(), f = AC.createBiquadFilter()
+          f.type = 'highpass'; f.frequency.value = 9000
+          s.buffer = buf; s.connect(f); f.connect(g); g.connect(masterGain)
+          g.gain.setValueAtTime(i % 2 === 0 ? 0.12 : 0.06, t)
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.035)
+          s.start(t)
+        }
+        setTimeout(() => hihat(AC.currentTime + 0.05), (beat * 8 - 0.05) * 1000)
+      }
+
+      function kick(time) {
+        ;[1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0].forEach((hit, i) => {
+          if (!hit) return
+          const t = time + i * beat * 0.5
+          const o = AC.createOscillator(), g = AC.createGain()
+          o.type = 'sine'; o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(38, t + 0.12)
+          o.connect(g); g.connect(masterGain)
+          g.gain.setValueAtTime(0.65, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.22)
+          o.start(t); o.stop(t + 0.25)
+        })
+        setTimeout(() => kick(AC.currentTime + 0.05), (beat * 8 - 0.05) * 1000)
+      }
+
+      function chord(time) {
+        const chords = [[0,3,7],[5,8,12],[3,7,10],[2,5,9]], root = 130.81
+        chords[Math.floor(Math.random() * chords.length)].forEach(semi => {
+          const freq = root * Math.pow(2, semi / 12)
+          const o = AC.createOscillator(), g = AC.createGain(), f = AC.createBiquadFilter()
+          f.type = 'lowpass'; f.frequency.value = 500
+          o.type = 'triangle'; o.frequency.value = freq
+          o.connect(f); f.connect(g); g.connect(masterGain)
+          g.gain.setValueAtTime(0, time); g.gain.linearRampToValueAtTime(0.055, time + 0.4)
+          g.gain.linearRampToValueAtTime(0.04, time + beat * 3); g.gain.linearRampToValueAtTime(0, time + beat * 4)
+          o.start(time); o.stop(time + beat * 4 + 0.1)
+        })
+        setTimeout(() => chord(AC.currentTime + 0.05), (beat * 4 - 0.05) * 1000)
+      }
+
+      const t0 = AC.currentTime + 0.1
+      bass(t0); hihat(t0); kick(t0); chord(t0)
+    }
+
+    function toggleMute() {
+      playClick(); musicMuted = !musicMuted
+      if (masterGain) masterGain.gain.linearRampToValueAtTime(musicMuted ? 0 : 0.055, AC.currentTime + 0.6)
+      const btn = document.getElementById('muteBtn')
+      btn.textContent = musicMuted ? '♩' : '♪'
+      btn.style.color = musicMuted ? 'var(--red)' : ''
+    }
+
+    setTimeout(startBackgroundMusic, 4200)
 
     const params = new URLSearchParams(window.location.search)
     const token = params.get('access_token')
-
     if (token) {
       document.getElementById('landingSection').style.display = 'none'
       document.getElementById('connectedSection').style.display = 'block'
       loadTopArtists()
     }
 
-    function connectSpotify() { window.location.href = '/login' }
+    function connectSpotify() { playClick(); window.location.href = '/login' }
 
     async function loadTopArtists() {
       try {
-        const response = await fetch('https://api.spotify.com/v1/me/top/artists?limit=10&time_range=medium_term', {
-          headers: { 'Authorization': 'Bearer ' + token }
-        })
-        const data = await response.json()
-        if (!data.items || data.items.length === 0) {
-          document.getElementById('artists').value = 'No artists found. Try listening to more music first!'
-          return
-        }
-        const artistNames = data.items.map(a => a.name).join(', ')
-        document.getElementById('artists').value = artistNames
+        const res = await fetch('https://api.spotify.com/v1/me/top/artists?limit=10&time_range=medium_term', { headers: { 'Authorization': 'Bearer ' + token } })
+        const data = await res.json()
+        if (!data.items || data.items.length === 0) { document.getElementById('artists').value = 'No artists found.'; return }
+        document.getElementById('artists').value = data.items.map(a => a.name).join(', ')
         document.getElementById('artistCount').textContent = data.items.length
-      } catch (err) {
-        document.getElementById('artists').value = 'Error loading artists. Try reconnecting Spotify.'
-      }
+      } catch (err) { document.getElementById('artists').value = 'Error loading artists. Try reconnecting.' }
     }
 
-    // MODE SELECTOR
     let currentMode = 'quick'
     let answers = { mood: '', purpose: '', energy: '', decade: '', favouriteArtist: '' }
+    let currentQuestion = 1
 
     function selectMode(mode) {
-      currentMode = mode
+      playClick(); currentMode = mode
       document.getElementById('modeQuick').classList.toggle('selected', mode === 'quick')
       document.getElementById('modePersonal').classList.toggle('selected', mode === 'personal')
-
-      const qSection = document.getElementById('questionsSection')
-      const quickSection = document.getElementById('quickAnalyseSection')
-
-      if (mode === 'personal') {
-        qSection.style.display = 'block'
-        quickSection.style.display = 'none'
-        resetQuestions()
-      } else {
-        qSection.style.display = 'none'
-        quickSection.style.display = 'block'
-      }
+      if (mode === 'personal') { document.getElementById('questionsSection').style.display = 'block'; document.getElementById('quickAnalyseSection').style.display = 'none'; resetQuestions() }
+      else { document.getElementById('questionsSection').style.display = 'none'; document.getElementById('quickAnalyseSection').style.display = 'block' }
     }
 
     function resetQuestions() {
-      currentQuestion = 1
-      answers = { mood: '', purpose: '', energy: '', decade: '', favouriteArtist: '' }
+      currentQuestion = 1; answers = { mood: '', purpose: '', energy: '', decade: '', favouriteArtist: '' }
       document.querySelectorAll('.question-step').forEach(s => s.classList.remove('active'))
       document.getElementById('q1').classList.add('active')
-      document.querySelectorAll('.q-dot').forEach((d, i) => {
-        d.classList.remove('done', 'active')
-        if (i === 0) d.classList.add('active')
-      })
+      document.querySelectorAll('.q-dot').forEach((d, i) => { d.classList.remove('done','active'); if (i===0) d.classList.add('active') })
       document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('picked'))
     }
 
-    let currentQuestion = 1
-
     function pickOption(btn, key, value) {
-      const grid = btn.closest('.options-grid')
-      grid.querySelectorAll('.option-btn').forEach(b => b.classList.remove('picked'))
-      btn.classList.add('picked')
-      answers[key] = value
+      playClick()
+      btn.closest('.options-grid').querySelectorAll('.option-btn').forEach(b => b.classList.remove('picked'))
+      btn.classList.add('picked'); answers[key] = value
     }
 
     function nextQuestion(current) {
-      const next = current + 1
+      playClick(); const next = current + 1
       document.getElementById('q' + current).classList.remove('active')
       document.getElementById('q' + next).classList.add('active')
-
-      document.getElementById('qdot' + (current - 1)).classList.remove('active')
-      document.getElementById('qdot' + (current - 1)).classList.add('done')
-      document.getElementById('qdot' + (next - 1)).classList.add('active')
-
+      document.getElementById('qdot' + (current-1)).classList.remove('active')
+      document.getElementById('qdot' + (current-1)).classList.add('done')
+      document.getElementById('qdot' + (next-1)).classList.add('active')
       currentQuestion = next
     }
 
     async function analyse() {
-      let artists = document.getElementById("artists").value
+      playClick()
+      const artists = document.getElementById('artists').value
       if (!artists) return
-
-      if (currentMode === 'personal') {
-        answers.favouriteArtist = document.getElementById('favouriteArtistInput').value || 'none specified'
-      }
-
-      let resultBox = document.getElementById("result")
-      let resultText = document.getElementById("resultText")
-      let resultId = document.getElementById("resultId")
-
+      if (currentMode === 'personal') answers.favouriteArtist = document.getElementById('favouriteArtistInput').value || 'none specified'
+      const resultBox = document.getElementById('result'), resultText = document.getElementById('resultText'), resultId = document.getElementById('resultId')
       const id = 'WL-' + Math.random().toString(36).substring(2,7).toUpperCase()
-      resultId.textContent = id
-      resultBox.classList.add("visible")
-      resultText.innerHTML = `
-        <div class="loading">
-          <div class="dots"><span></span><span></span><span></span></div>
-          Decoding your taste
-        </div>`
+      resultId.textContent = id; resultBox.classList.add('visible')
+      resultText.innerHTML = `<div class="loading"><div class="dots"><span></span><span></span><span></span></div>Decoding your taste</div>`
       resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
       const body = { artists }
-      if (currentMode === 'personal') {
-        body.mood = answers.mood
-        body.purpose = answers.purpose
-        body.energy = answers.energy
-        body.decade = answers.decade
-        body.favouriteArtist = answers.favouriteArtist
-      }
-
-      let response = await fetch("/analyse", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      })
-      let data = await response.json()
+      if (currentMode === 'personal') { body.mood = answers.mood; body.purpose = answers.purpose; body.energy = answers.energy; body.decade = answers.decade; body.favouriteArtist = answers.favouriteArtist }
+      const res = await fetch('/analyse', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      const data = await res.json()
       resultText.innerHTML = data.result
     }
 
-    function copyResult() {
-      const text = document.getElementById('resultText').innerText
-      navigator.clipboard.writeText(text)
-      alert('Copied!')
+    let swipeTracks = [], swipeIndex = 0, savedTracks = []
+
+    async function startSwipe() {
+      playClick()
+      document.getElementById('playlistSection').style.display = 'none'
+      document.getElementById('swipeSection').style.display = 'block'
+      document.getElementById('swipeSection').scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const res = await fetch('https://api.spotify.com/v1/me/top/tracks?limit=30&time_range=medium_term', { headers: { 'Authorization': 'Bearer ' + token } })
+      const data = await res.json()
+      swipeTracks = data.items || []; swipeIndex = 0; savedTracks = []
+      document.getElementById('swipeTotal').textContent = swipeTracks.length
+      renderSwipeCard()
     }
 
-    function tweetResult() {
-      const text = document.getElementById('resultText').innerText
-      const tweet = encodeURIComponent('"' + text.substring(0, 200) + '..." — My music personality via Wavelength')
-      window.open('https://twitter.com/intent/tweet?text=' + tweet, '_blank')
+    function renderSwipeCard() {
+      if (swipeIndex >= swipeTracks.length) { showSaved(); return }
+      const t = swipeTracks[swipeIndex], next = swipeTracks[swipeIndex + 1]
+      document.getElementById('swipeTrack').textContent = t.name
+      document.getElementById('swipeArtist').textContent = t.artists.map(a => a.name).join(', ')
+      document.getElementById('swipeAlbum').src = t.album.images[1]?.url || t.album.images[0]?.url || ''
+      document.getElementById('swipeIndex').textContent = swipeIndex + 1
+      const peek = document.getElementById('swipeCardPeek')
+      if (next) {
+        const nImg = next.album.images[1]?.url || next.album.images[0]?.url || ''
+        peek.innerHTML = `<img style="width:80px;height:80px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#1a1a1a" src="${nImg}"/><div style="flex:1"><div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--white);opacity:0.3">${next.name}</div></div>`
+      } else { peek.innerHTML = '' }
+      document.getElementById('swipeCard').classList.remove('go-left','go-right')
     }
 
-    function shareWhatsApp() {
-      const text = document.getElementById('resultText').innerText
-      const msg = encodeURIComponent('"' + text.substring(0, 200) + '..." — My music personality via Wavelength\n\nhttps://wavelength-nx3r.onrender.com')
-      window.open('https://wa.me/?text=' + msg, '_blank')
+    function swipeTrack(save) {
+      if (save) { playHeart(); savedTracks.push(swipeTracks[swipeIndex]) } else { playClick() }
+      const card = document.getElementById('swipeCard')
+      card.classList.add(save ? 'go-right' : 'go-left')
+      swipeIndex++
+      setTimeout(() => { card.classList.remove('go-left','go-right'); renderSwipeCard() }, 380)
     }
 
-    function copyLink() {
-      navigator.clipboard.writeText('https://wavelength-nx3r.onrender.com')
-      alert('Link copied!')
-    }
-
-    async function createPlaylist() {
-      document.getElementById('playlistLink').textContent = 'Creating your Wavelength Mix...'
-      const body = { token }
-      if (currentMode === 'personal') {
-        body.mood = answers.mood
-        body.purpose = answers.purpose
-      }
-      const response = await fetch('/create-playlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
+    function showSaved() {
+      document.getElementById('swipeSection').style.display = 'none'
+      document.getElementById('savedSection').style.display = 'block'
+      document.getElementById('savedSection').scrollIntoView({ behavior: 'smooth', block: 'start' })
+      document.getElementById('savedCount').textContent = savedTracks.length
+      const name = answers.mood && answers.purpose ? `Wavelength — ${answers.mood} ${answers.purpose} Mix` : 'Your Wavelength Mix'
+      document.getElementById('savedTitle').textContent = name
+      const list = document.getElementById('savedList')
+      list.innerHTML = ''
+      if (savedTracks.length === 0) { list.innerHTML = '<div class="saved-empty">You skipped everything. Bold choice.</div>'; return }
+      savedTracks.forEach((t, i) => {
+        const url = t.external_urls?.spotify || `https://open.spotify.com/search/${encodeURIComponent(t.name + ' ' + t.artists[0].name)}`
+        const img = t.album.images[2]?.url || t.album.images[0]?.url || ''
+        const row = document.createElement('div')
+        row.className = 'saved-track-row'; row.style.animationDelay = (i * 0.04) + 's'
+        row.innerHTML = `<span class="saved-track-num">${String(i+1).padStart(2,'0')}</span><img class="saved-track-img" src="${img}" alt=""/><div class="saved-track-info"><div class="saved-track-name">${t.name}</div><div class="saved-track-artist">${t.artists.map(a=>a.name).join(', ')}</div></div><button class="saved-open-btn" onclick="openTrack('${url}')">Open →</button>`
+        list.appendChild(row)
       })
-      const data = await response.json()
-      if (data.playlistUrl) {
-        document.getElementById('playlistLink').innerHTML = `<a href="${data.playlistUrl}" target="_blank" style="color: var(--lime);">Open your Wavelength Mix on Spotify →</a>`
-      }
     }
+
+    function openTrack(url) { playClick(); window.open(url, '_blank') }
+    function copyResult() { playClick(); navigator.clipboard.writeText(document.getElementById('resultText').innerText); alert('Copied!') }
+    function tweetResult() { playClick(); const text = document.getElementById('resultText').innerText; window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('"' + text.substring(0,200) + '..." — My music personality via Wavelength'), '_blank') }
+    function shareWhatsApp() { playClick(); const text = document.getElementById('resultText').innerText; window.open('https://wa.me/?text=' + encodeURIComponent('"' + text.substring(0,200) + '..." — My music personality via Wavelength\n\nhttps://wavelength-nx3r.onrender.com'), '_blank') }
+    function copyLink() { playClick(); navigator.clipboard.writeText('https://wavelength-nx3r.onrender.com'); alert('Link copied!') }
   </script>
 </body>
 </html>
